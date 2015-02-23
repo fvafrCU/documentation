@@ -1,3 +1,20 @@
+#' get all lines between tagged lines
+#'
+#' @author Dominik Cullmann, <dominik.cullmann@@forst.bwl.de>
+#' @section Version: $Id: 830c4c8efdcff05e197e15cfe6f1104a95e34e0b $
+#' @param file_name  The name of the R code file to be parsed.
+#' @param keep_tagged_lines keep tagged lines output?
+#' @param end_pattern  A pattern that marks the line ending the roxygen part.
+#' @param begin_pattern  A pattern that marks the line beginning the roxygen
+#' part.
+#' @param from_firstline use first line as tagged line if first tag found 
+#' matches the end_pattern.
+#' @param to_lastline use last line as tagged line if last tag found matches
+#' the begin_pattern.
+#' @note If you know the file to contain valid roxygen code only, you do not
+#' need to tag any lines if you keep from_firstline and to_lastline both TRUE:
+#' in this case the whole file will be returned.
+#' @return a character vector of matching lines.
 get_lines_between_tags <- function(file_name, keep_tagged_lines = TRUE,
                          begin_pattern = 'ROXYGEN_START', 
                          end_pattern = 'ROXYGEN_STOP',

@@ -1,3 +1,20 @@
+#' roxygenize an R code file, output the documentation to pdf.
+#'
+#FIXME: Description
+#'
+#' @author Dominik Cullmann, <dominik.cullmann@@forst.bwl.de>
+#' @section Version: $Id: 9bbb752b06d887f2115e37c3e9dadd89e40c49c7 $
+#' @param file_name  name your R code file to be documented.
+#' @param markdown set to FALSE if you do not want to parse markdown comments 
+#' in your file.
+#' @param roxygen set to FALSE if you do not want to roxygenize your file.
+#' @param ... arguments passed to \code{\link{create_roxygen_documentation}} or
+#' \code{\link{create_markdown_documentation}}.
+#' @return a logical vector indicating whether markdown comments and roxygen
+#' annotations were parsed.
+#' @examples
+#' create_template(file_name = 'my_r_file.r', type = 'roxygen_markdown')
+#' create_documentation('my_r_file.r', overwrite = TRUE)
 create_documentation <- function(file_name,
                                  markdown = TRUE,
                                  roxygen = TRUE,
@@ -37,6 +54,27 @@ create_documentation <- function(file_name,
     status <- c(markdown = status_markdown, roxygen = status_roxygen)
     return(invisible(status))
 }
+#' roxygenize an R code file, output the documentation to pdf.
+#'
+#' extract the roxygen parts by using special tags in the code, then wrap
+#' utils::package.skeleton() and roxygen2::roxygenize().
+#'
+#' @author Dominik Cullmann, <dominik.cullmann@@forst.bwl.de>
+#' @section Version: $Id: 9bbb752b06d887f2115e37c3e9dadd89e40c49c7 $
+#' @param file_name  The name of the R code file to be documented.
+#' @param output_directory The directory to put the documentation into.
+#' @param overwrite Overwrite an existing documentation file?
+#' @param check_package Run R CMD check on the sources?
+#' @param copy_tmp_files_to path to copy temporary files to. See Note. \cr This
+#' parameter has no effect if make_check is not TRUE.
+#' @param working_directory A working directory. Defaults to tempdir().
+#' \bold{Warning} the working_directory will be recursively
+#' \code{\link{unlink}}ed. You can erase your disk if you change the default!
+#' @param ... Arguments passed to \code{\link{get_lines_between_tags}}.
+#' @return TRUE if pdf creation is successfull, FALSE otherwise.
+#' @examples
+#' create_template(file_name = 'my_r_file.r', type = 'template')
+#' create_roxygen_documentation('my_r_file.r', overwrite = TRUE)
 create_roxygen_documentation <- function(
                                          file_name,
                                          output_directory = '.',
@@ -133,6 +171,25 @@ create_roxygen_documentation <- function(
     return(invisible(all(files_copied)))
 }
 
+#' parse markdown comments.
+#'
+#' A wrapper to parse_markdown_comments.py.
+#'
+#' @note should normally be invoked via \code{\link{create_documentation}}.
+#' You could also run the python code directly.
+#' @author Dominik Cullmann, <dominik.cullmann@@forst.bwl.de>
+#' @section Version: $Id: 9bbb752b06d887f2115e37c3e9dadd89e40c49c7 $
+#' @param file_name name of or path to the file to be parsed through
+#' parse_markdown_comments.py.
+#' @param python name of or path to a python binary.
+#' @param comment_character the character indicating a comment line. In R this
+#' is '#'. You only need to change it if you want to run this function on a 
+#' file containing code other than R. But then you might be better off using
+#' parse_markdown_comments.py directly.
+#' @param magic_character the magic character indicating a markdown comment.
+#' @param arguments a character vector of further arguments passed to
+#' parse_markdown_comments.py.
+#' @return TRUE on success, FALSE otherwise.
 create_markdown_documentation <- function(file_name, python = 'python',
                                           arguments = NULL,
                                           magic_character = '%',
