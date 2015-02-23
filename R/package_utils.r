@@ -6,7 +6,7 @@
 #' @author Dominik Cullmann, <dominik.cullmann@@forst.bwl.de>
 #' @section Version: $Id: 3d72fa8d41ea4e2e7b29ffdfefc45e58fe5274b5 $
 #' @param package_directory Path to the directory.
-#' @return Return value of \code{link{base::file.remove()}}.
+#' @return value of \code{link{base::file.remove()}}.
 remove_package_Rd <- function(package_directory) {
     package_name <- basename(package_directory)
     package_rd <- paste(package_name, '-package.Rd', sep = '')
@@ -22,7 +22,7 @@ remove_package_Rd <- function(package_directory) {
 #' @author Dominik Cullmann, <dominik.cullmann@@forst.bwl.de>
 #' @section Version: $Id: 3d72fa8d41ea4e2e7b29ffdfefc45e58fe5274b5 $
 #' @param package_directory Path to the directory.
-#' @return Return value of \code{link{writeLines}}.
+#' @return value of \code{link{writeLines}}.
 clean_description <- function(package_directory) {
     description_file <- file.path(package_directory, 'DESCRIPTION') 
     description <-  readLines(description_file)
@@ -31,14 +31,32 @@ clean_description <- function(package_directory) {
     return(invisible(status))
 }
 
-#FIXME: DOC
+#' fix a \code{\link{package.skeleton}}s package skeleton. 
+#'
+#' This is just a conviniece wrapper to \code{\link{remove_package_Rd}} and
+#' \code{\link{clean_description}}.
+#'
+#' @author Dominik Cullmann, <dominik.cullmann@@forst.bwl.de>
+#' @section Version: $Id: 3d72fa8d41ea4e2e7b29ffdfefc45e58fe5274b5 $
+#' @param package_directory Path to the directory.
+#' @return invisibly NULL.
 fix_package_documentation <- function(package_directory) {
     remove_package_Rd(package_directory)
     clean_description(package_directory)
     return(invisible(NULL))
 }
 
-#FIXME: DOC
+#' build and check a temporary package intended for documentation mainly.
+#'
+#' We might want to see if the temporary package we've created to document our
+#' code file would build and pass R CMD check as a proper package.
+#' 
+#' @author Dominik Cullmann, <dominik.cullmann@@forst.bwl.de>
+#' @section Version: $Id: 3d72fa8d41ea4e2e7b29ffdfefc45e58fe5274b5 $
+#' @param package_directory Path to the packages' directory.
+#' @param working_directory Path to a working directory.
+#' @param copy_tmp_files_to Path to copy temporary files from R CMD CHECK to.
+#' @return invisibly 0, if R CMD check returned 0, nothing otherwise.
 build_and_check_package <- function(package_directory, working_directory,
                                     copy_tmp_files_to) {
     on.exit(setwd(old_working_directory))
