@@ -1,9 +1,17 @@
 Package: documentation
 Type: Package
-Title: What the package does (short line)
-Version: 1.0
+Title: document a single R code file.
+Version: 0.0-1
 Date: 2015-02-23
-Author: Who wrote it
-Maintainer: Who to complain to <yourfault@somewhere.net>
-Description: More about what it does (maybe more than one line)
-License: What license is it under?
+Authors@R: c(person(given = c("Andreas", "Dominik"), family = "Cullmann",
+    email = "dominik.cullmann@forst.bwl.de", role = c("aut","cre"), 
+    comment = NULL, first = NULL, last = NULL))
+Description:  extract roxygen2-style and markdown comments from a single R code 
+    file and convert them to Portable Document Format.
+License: BSD_3_clause + file LICENSE
+SystemRequirements: Python 
+Imports: 
+    roxygen2,
+    utils,
+    tools
+Suggests: installr
