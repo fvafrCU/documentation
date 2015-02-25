@@ -5,7 +5,7 @@ library(documentation)
 working_directory <- file.path(dirname(tempdir()), 'documentation_demo')
 unlink(working_directory, recursive = TRUE)
 dir.create(working_directory)
-setwd(working_directory)
+old_working_directory <- setwd(working_directory)
 create_documentation(system.file('templates/documentation_template.r', 
                                  package='documentation'))
 create_template(file_name = 'my_r_file.r')
@@ -43,3 +43,4 @@ for (file_name in list.files(system.file('templates',
                )
     }
 }
+setwd(old_working_directory)
