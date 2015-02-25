@@ -30,7 +30,7 @@ for (file_name in list.files(system.file('templates',
         Sweave(sweave_file)
         tools::texi2dvi(sub("Rnw$", "tex", sweave_file), pdf = TRUE)
     } else {
-        type <- sub('.R$', '', gsub('documentation_', '', file_name))
+        type <- sub('.r$', '', gsub('documentation_', '', file_name))
         message(paste('=======', file_name, '======='))
         create_template(type = type)
         switch(type,
