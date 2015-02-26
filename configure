@@ -91,7 +91,8 @@ crancheck: check
         R CMD check --as-cran ${rpackage}_${rpversion}.tar.gz 
 install: check 
 	R --vanilla CMD INSTALL  ${rpackage}_${rpversion}.tar.gz && \
-        printf '===== have you run\n\tmake check_demo && make package_tools\n?!\n' 
+        printf '===== have you run\n\tmake check_demo && ' && \
+        printf 'make package_tools && make runit && make coldr\n?!\n' 
 check: build 
 	export _R_CHECK_FORCE_SUGGESTS_=FALSE && \
         R --vanilla CMD check ${rpackage}_${rpversion}.tar.gz && \
@@ -112,6 +113,8 @@ check_demo:
 	demo/${rpackage}.r
 runit:
 	cd tests/ && ./runit.r
+coldr:
+	Rscript --vanilla -e 'library("coldr"); check_directory("R/"); warnings()'
 
 .PHONY: package_tools
 package_tools:

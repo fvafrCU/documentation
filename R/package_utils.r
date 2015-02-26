@@ -16,8 +16,8 @@ remove_package_Rd <- function(package_directory) {
 
 #' Change License in the DESCRIPTION file to 'GPL'
 #'
-#' utils::package.skeleton() leaves us with a DESCRIPTION that throws a warning in 
-#' R CMD check. Fix that.
+#' utils::package.skeleton() leaves us with a DESCRIPTION that throws a warning 
+#' in R CMD check. Fix that.
 #'
 #' @author Dominik Cullmann, <dominik.cullmann@@forst.bwl.de>
 #' @section Version: $Id: 3d72fa8d41ea4e2e7b29ffdfefc45e58fe5274b5 $
