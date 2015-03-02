@@ -1,6 +1,7 @@
-#' roxygenize an R code file, output the documentation to pdf.
+#' extract roxygen2-style and markdown comments from a single R code file 
 #'
-#FIXME: Description
+#'  this is a wrapper around \code{\link{create_roxygen_documentation}} and
+#'  \code{\link{create_markdown_documentation}}.
 #'
 #' @author Dominik Cullmann, <dominik.cullmann@@forst.bwl.de>
 #' @section Version: $Id: 9bbb752b06d887f2115e37c3e9dadd89e40c49c7 $

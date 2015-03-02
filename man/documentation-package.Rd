@@ -4,14 +4,14 @@
 \alias{documentation-package}
 \title{document a single R code file.}
 \description{
-extract roxygen2-style and markdown comments from a single R
-code file and convert them to Portable Document Format.
+extract roxygen2-style and markdown comments from a single R code
+file and convert them to various human-readable formats.
 }
 \details{
 R is a programming language that supports and checks documentation for
-program libraries (called `packages'). The package roxygen2 even provides a
-tool for creating documentation from annoted source code - much like doxygen,
-Javadoc and docstrings/pydoc do.
+program libraries (called `packages'). The package roxygen2 provides a
+tool for creating documentation from annotated source code - much like
+doxygen, Javadoc and docstrings/pydoc do.
 
 And R is a free software environment for statistical computing and graphics,
 used by people like me who start out hacking down code, eventually pouring
@@ -21,9 +21,9 @@ Along that workflow you can't use R's documentation system, let alone
 roxygen2, unless you've come to forge your code into a package.
 
 And there is a second issue: where not using functions heavily, my code often
-becomes lengthy. Because I use it to load, plot and model data, most of which
+becomes lengthy. For I use it to load, plot and model data, most of which
 is done once and using functions for everything is ... a bit over the top.
-So I - as most R users - comment on the code to structure it. And I use
+As it becomes lengthy, I comment on the code to structure it. And I use
 markdown style comments as a standard to allow for several levels of
 `structuring depth'.
 
@@ -48,16 +48,22 @@ For the second scenario I have examples included: run
 but you can utilize the examples for the second.
 
 I am fully aware of the fact that roxygen2 is meant to document packages, not
-single code chunks (and this package internally constructs packages from the
-single source files which are then processed with roxygen2).
+single code chunks (see \emph{Note}).
 So should you. Nevertheless I feel the temptation to use
 roxygen2-style comments in code chunks that aren't part of any package. And
 to convert them to pdf for better readability.
 }
 \note{
-This package is merely a wrapper around utils::package.sekeleton(),
-roxygen2::roxygenize and inst/src/parse_markdown_comments.py, a python
-program that feeds markdown to pandoc.
+This package is basically a wrapper to
+\enumerate{
+    \item roxygen2. It internally creates a temporary package from the code
+     files provided (using
+     \code{\link[utils:package.skeleton]{utils::package.skeleton}})
+     which it then passes to roxygen2.
+    \item parse_markdown_comments.py, a python program to extract markdown
+     comments from source files and feed them to
+     \href{http://www.pandoc.org}{pandoc}.
+}
 }
 \section{Version}{
  $Id: 65f8e4dd3f37d88ae1f2fcf5c5e25520a5b75f2e $
