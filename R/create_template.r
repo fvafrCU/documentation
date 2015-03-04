@@ -21,7 +21,7 @@ create_template <- function(type = 'template', file_name = '.') {
     )
 
     available_types <- c('template', 'standard', 'roxygen', 'markdown',
-                             'roxygen_markdown')
+                             'roxygen_markdown', 'rnw')
     if (! type  %in% available_types) stop(paste('type must be in c("', 
                                                  paste(available_types, 
                                                        collapse = '", "'
@@ -30,7 +30,11 @@ create_template <- function(type = 'template', file_name = '.') {
                                                  sep = ''
                                                  )
     )
-    template_name <- paste('documentation_', type, '.r', sep = '')
+    if(type == "rnw") {
+        template_name <- paste('documentation_', type, '.Rnw', sep = '')
+    } else {
+        template_name <- paste('documentation_', type, '.r', sep = '')
+    }
     template_path <- file.path('templates', template_name)
     template_file <- system.file(template_path, package = 'documentation')
     status <- file.copy(template_file, file_name)

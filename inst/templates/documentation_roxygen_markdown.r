@@ -68,8 +68,8 @@ source('tmp.R')
 # ROXYGEN_START
 #' a first function example
 #' 
-#'  This is just an example, the function prints `head()` and
-#' `str()` of the given data.frame.  
+#' This really is just an example, the function prints \code{head()} and
+#' \code{str} of the given \code{data.frame}.
 #' 
 #' @author Dominik Cullmann <dominik.cullmann@@forst.bwl.de>  
 #' @section Version:* $Id: c292952dbede3c2450d513a0d394603f89d6f8b8 $  

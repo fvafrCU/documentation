@@ -93,10 +93,18 @@ install: check
 	R --vanilla CMD INSTALL  ${rpackage}_${rpversion}.tar.gz && \
         printf '===== have you run\n\tmake check_demo && ' && \
         printf 'make package_tools && make runit && make coldr\n?!\n' 
+install_bare: build_bare 
+	R --vanilla CMD INSTALL  ${rpackage}_${rpversion}.tar.gz 
+check_bare: build_bare 
+	export _R_CHECK_FORCE_SUGGESTS_=FALSE && \
+        R --vanilla CMD check --no-examples ${rpackage}_${rpversion}.tar.gz && \
+        printf '===== run\n\tmake install\n!!\n'
 check: build 
 	export _R_CHECK_FORCE_SUGGESTS_=FALSE && \
         R --vanilla CMD check ${rpackage}_${rpversion}.tar.gz && \
         printf '===== run\n\tmake install\n!!\n'
+build_bare: 
+	R --vanilla CMD build ../${rpackage}
 build: check_meta_info
 	R --vanilla CMD build ../${rpackage}
 check_meta_info: roxy
@@ -109,20 +117,21 @@ roxy:
 	R --vanilla CMD BATCH --vanilla ${roxy_code}
 check_demo:
 	# R CMD BATCH  demo/${rpackage}.r ## Rscript doesn't load
-    # methods, but we fixed that.
+	# methods, but we fixed that.
 	demo/${rpackage}.r
 runit:
-	cd tests/ && ./runit.r
+	./tests/runit.R
 coldr:
 	Rscript --vanilla -e 'library("coldr"); check_directory("R/"); warnings()'
 
 .PHONY: package_tools
 package_tools:
 	./${package_tools} # codetools needs to load the package, so we need make
-    # install first
+	# install first
 clean:
-	rm Makefile 
-	rm -rf ${rpackage}.Rcheck
+	rm -rf *.Rcheck
+purge:
+	git clean -x -f -d
 remove:
 	 R --vanilla CMD REMOVE  ${rpackage}
 EOF

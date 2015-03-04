@@ -1,4 +1,4 @@
-#' extract roxygen2-style and markdown comments from a single R code file 
+#' extract roxygen2-style and markdown comments from a single R code file
 #'
 #'  this is a wrapper around \code{\link{create_roxygen_documentation}} and
 #'  \code{\link{create_markdown_documentation}}.
@@ -6,7 +6,7 @@
 #' @author Dominik Cullmann, <dominik.cullmann@@forst.bwl.de>
 #' @section Version: $Id: 9bbb752b06d887f2115e37c3e9dadd89e40c49c7 $
 #' @param file_name  name your R code file to be documented.
-#' @param markdown set to FALSE if you do not want to parse markdown comments 
+#' @param markdown set to FALSE if you do not want to parse markdown comments
 #' in your file.
 #' @param roxygen set to FALSE if you do not want to roxygenize your file.
 #' @param ... arguments passed to \code{\link{create_roxygen_documentation}} or
@@ -50,7 +50,7 @@ create_documentation <- function(file_name,
         # use only non-empty arguments
         arguments_to_use <- arguments_to_use[arguments_to_use != '']
         status_roxygen <- do.call("create_roxygen_documentation",
-                                   arguments_to_use)
+                                  arguments_to_use)
     }
     status <- c(markdown = status_markdown, roxygen = status_roxygen)
     return(invisible(status))
@@ -85,6 +85,7 @@ create_roxygen_documentation <- function(
                                          working_directory = tempdir(),
                                          ...
                                          ) {
+    on.exit(unlink("Rd2.pdf"))
     #% define variables
     out_file_name <- sub('.Rnw$', '.r', basename(file_name))
     package_name <- gsub('_', '.',
@@ -101,8 +102,8 @@ create_roxygen_documentation <- function(
     file_name_tex <- gsub('_', "\\_", out_file_name, fixed = TRUE)
     pdf_title <- paste('\'Roxygen documentation for file', file_name_tex, '\'')
     R_CMD_pdf <- paste('R CMD Rd2pdf --no-preview --internals',
-                           '--title=',  pdf_title,
-                           man_directory)
+                       '--title=',  pdf_title,
+                       man_directory)
     # R CMD command line options mustn't have spaces around equal signs:
     R_CMD_pdf <- gsub('= ', '=', R_CMD_pdf)
     #% create temporary directory
@@ -119,54 +120,48 @@ create_roxygen_documentation <- function(
     writeLines(roxygen_code, con = file.path(working_directory, out_file_name))
     #% create a package from new file
     package.skeleton(code_files = file.path(working_directory, out_file_name),
-                     name = package_name, path = working_directory, 
+                     name = package_name, path = working_directory,
                      force = TRUE)
     #% create documentation from roxygen comments for the package
     roxygenize(package.dir = package_directory)
-    #% check if the package compiles
+    #% streamline the documentation
+    fix_package_documentation(package_directory)
     if (check_package) {
-        ##% first streamline the documentation
-        fix_package_documentation(package_directory)
-        ##% now check
+        #% check if the package compiles
         build_and_check_package(package_directory = package_directory,
-                                working_directory = working_directory,
                                 copy_tmp_files_to = copy_tmp_files_to
                                 )
     }
     #% create documentation from Rd-files
-    ##% first change to the temporary directory
-    #######% we don't want to write to disk without knowing where we are.
-    #######%
-    old_working_directory <- setwd(working_directory)
     ##% create pdf
     system(R_CMD_pdf, intern = FALSE, wait = TRUE)
     ##% create txt
     Rd_txt <- NULL
-    for (file in list.files(man_directory, full.names = TRUE)) {
-        R_CMD_txt <- paste('R CMD Rdconv --type=txt', file)
+    files  <- sort_unlocale(list.files(man_directory, full.names = TRUE))
+    for (rd_file in files) {
+        R_CMD_txt <- paste0('R CMD Rdconv --type=txt ', rd_file)
         Rd_txt <- c(Rd_txt, system(R_CMD_txt, intern = TRUE, wait = TRUE))
     }
-    writeLines(Rd_txt, con = txt_name)
-    ##% go back to the output directory
-    setwd(old_working_directory)
+    #FIXME: this is horrible, I'm converting non-ascii to % and that to '
+    Rd_txt <- gsub('%+', "'", iconv(Rd_txt, to = 'ASCII', mark = TRUE, 
+                                    sub = '%'))
+    writeLines(iconv(Rd_txt, to = 'ASCII', mark = TRUE), con = txt_name)
     #% copy pdf to output_directory
-    files_copied <- c(status_pdf = file.copy(file.path(working_directory,
-                                                       'Rd2.pdf'),
+    files_copied <- c(status_pdf = file.copy('Rd2.pdf',
                                              pdf_path,
                                              overwrite = overwrite),
-                      status_txt = file.copy(file.path(working_directory,
-                                                       txt_name),
+                      status_txt = file.copy(txt_name,
                                              txt_path,
                                              overwrite = overwrite)
-                     )
+                      )
     if (! all(files_copied)) {
         if (! files_copied["status_txt"])
             stop(paste("can't write to disk: file", txt_path,
-                       'already exists!\n',
+                       '\n',
                        'You may want to set overwrite to TRUE'))
         if (! files_copied["status_pdf"])
             stop(paste("can't write to disk: file", pdf_path,
-                       'already exists!\n',
+                       '\n',
                        'You may want to set overwrite to TRUE'))
     }
     return(invisible(all(files_copied)))
@@ -184,7 +179,7 @@ create_roxygen_documentation <- function(
 #' parse_markdown_comments.py.
 #' @param python name of or path to a python binary.
 #' @param comment_character the character indicating a comment line. In R this
-#' is '#'. You only need to change it if you want to run this function on a 
+#' is '#'. You only need to change it if you want to run this function on a
 #' file containing code other than R. But then you might be better off using
 #' parse_markdown_comments.py directly.
 #' @param magic_character the magic character indicating a markdown comment.
@@ -201,9 +196,9 @@ create_markdown_documentation <- function(file_name, python = 'python',
         python_arguments <- '-h'
     } else {
         python_arguments <- c(arguments,
-                       paste("-c '", comment_character, "'", sep =''),
-                       paste('-m "', magic_character, '"', sep =''),
-                       file_name)
+                              paste("-c '", comment_character, "'", sep =''),
+                              paste('-m "', magic_character, '"', sep =''),
+                              file_name)
     }
     if (Sys.which(python) == ""){
         if (.Platform$OS.type != 'unix') {
@@ -223,8 +218,7 @@ create_markdown_documentation <- function(file_name, python = 'python',
         # parse_markdown_comments.py tries to tex the tex file. If it does not
         # succeed, we use the tools package.
         if (file.exists(tex_name) && ! file.exists(pdf_name)) {
-                print('=============foo')
-                tools::texi2dvi(tex_name, pdf = TRUE, clean = TRUE)
+            tools::texi2dvi(tex_name, pdf = TRUE, clean = TRUE)
         }
         # python exit code 0 corresponds to TRUE, values <> 0 correspond to
         # FALSE

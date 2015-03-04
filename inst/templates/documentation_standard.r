@@ -57,8 +57,8 @@ source('tmp.R')
 ## define local functions
 ####### a first function example
 ####### 
-####### * This is just an example, the function prints `head()` and
-####### `str()` of the given data.frame.  
+####### * This is just an example, the function prints head() and
+####### str() of the given data.frame.  
 ####### * And you **really** should use roxygen to document functions.
 ####### 
 ####### *author* Dominik Cullmann <dominik.cullmann@@forst.bwl.de>  
