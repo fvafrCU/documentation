@@ -136,15 +136,25 @@ create_roxygen_documentation <- function(
     ##% create pdf
     system(R_CMD_pdf, intern = FALSE, wait = TRUE)
     ##% create txt
+    # using R CMD Rdconv on the system instead of Rd2txt since ?Rd2txt states
+    # it's "mainly intended for internal use" and its interface is "subject to
+    # change."
     Rd_txt <- NULL
     files  <- sort_unlocale(list.files(man_directory, full.names = TRUE))
     for (rd_file in files) {
         R_CMD_txt <- paste0('R CMD Rdconv --type=txt ', rd_file)
         Rd_txt <- c(Rd_txt, system(R_CMD_txt, intern = TRUE, wait = TRUE))
     }
-    #FIXME: this is horrible, I'm converting non-ascii to % and that to '
-    Rd_txt <- gsub('%+', "'", iconv(Rd_txt, to = 'ASCII', mark = TRUE, 
-                                    sub = '%'))
+    # TODO: this is horrible, I'm converting non-ascii to byte and that to
+    # ascii, but 
+    # - setting the options(useFancyQuotes = 'UTF-8') and 
+    # - gsub("\u0060", "'", Rd_txt) (I thought u0060 would be the backtick)
+    # didn't seem to help. 
+    Rd_txt <- gsub("<e2><80><99>" ,"'", 
+                   gsub("<e2><80><98>", "'", 
+                        iconv(Rd_txt, to = "ASCII", mark = TRUE, sub = "byte")
+                   )
+    )
     writeLines(iconv(Rd_txt, to = 'ASCII', mark = TRUE), con = txt_name)
     #% copy pdf to output_directory
     files_copied <- c(status_pdf = file.copy('Rd2.pdf',
