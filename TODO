@@ -1,8 +1,4 @@
-It's an encoding problem: the templates are all utf-8, the expected files are ascii
-but the failing one, which is utf-8.
-
-The templates use '`' instead of \code{}, which then translates to UTF-8 
-we've got to fix that.
-
-- change string enclosing frm '' to ""
-- use checkmate for every function argument
+- fix the less dreadful workaround in the creation of ascii from Rd in
+  create_roxgen_documentation().
+- change string enclosing frm '' to "".
+- use checkmate for every function argument.
