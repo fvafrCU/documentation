@@ -1,7 +1,7 @@
 Package: documentation
 Type: Package
 Title: document a single R code file.
-Version: 0.1-2
+Version: 0.1-3
 Date: 2015-03-18
 Authors@R: c(person(given = c("Andreas", "Dominik"), family = "Cullmann",
     email = "dominik.cullmann@forst.bwl.de", role = c("aut","cre"), 
