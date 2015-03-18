@@ -128,9 +128,10 @@ coldr:
 package_tools:
 	./${package_tools} # codetools needs to load the package, so we need make
 	# install first
+purge: clean clean_git remove
 clean:
 	rm -rf *.Rcheck
-purge:
+clean_git:
 	git clean -x -f -d
 remove:
 	 R --vanilla CMD REMOVE  ${rpackage}
