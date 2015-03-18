@@ -101,6 +101,14 @@ create_roxygen_documentation <- function(
     # LaTeX.
     file_name_tex <- gsub('_', "\\_", out_file_name, fixed = TRUE)
     pdf_title <- paste('\'Roxygen documentation for file', file_name_tex, '\'')
+    if (.Platform$OS.type != 'unix') { 
+        ## on windows, R CMD Rd2pdf crashes with multi-word titles... I have no
+        ## clue of the why
+        pdf_title <- file_name_tex
+        ## man dir on windows must be in slashes... at least for R CMD Rd2pdf,
+        ## again, I have no clue
+        man_directory <- sub("\\\\","/", man_directory)
+    }
     R_CMD_pdf <- paste('R CMD Rd2pdf --no-preview --internals',
                        '--title=',  pdf_title,
                        man_directory)
@@ -171,16 +179,6 @@ create_roxygen_documentation <- function(
                                              txt_path,
                                              overwrite = overwrite)
                       )
-    if (! all(files_copied)) {
-        if (! files_copied["status_txt"])
-            stop(paste("can't write to disk: file", txt_path,
-                       '\n',
-                       'You may want to set overwrite to TRUE'))
-        if (! files_copied["status_pdf"])
-            stop(paste("can't write to disk: file", pdf_path,
-                       '\n',
-                       'You may want to set overwrite to TRUE'))
-    }
     return(invisible(all(files_copied)))
 }
 
