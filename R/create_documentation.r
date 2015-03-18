@@ -211,8 +211,8 @@ create_markdown_documentation <- function(file_name, python = 'python',
         python_arguments <- '-h'
     } else {
         python_arguments <- c(arguments,
-                              paste("-c '", comment_character, "'", sep =''),
-                              paste('-m "', magic_character, '"', sep =''),
+                              paste0('-c "', comment_character, '"'),
+                              paste0('-m "', magic_character, '"'),
                               file_name)
     }
     if (Sys.which(python) == ""){
@@ -233,6 +233,8 @@ create_markdown_documentation <- function(file_name, python = 'python',
         parser <- system.file(file.path('python', 'parse_markdown_comments.py'),
                               package = 'documentation'
                               )
+        # on windows, blanks in parser break system command, if unquoted
+        parser <- paste0('"', parser, '"')
         status <- system2(python, args = c(parser, python_arguments))
         pdf_name <- paste(file_name, '_markdown.pdf', sep = '')
         tex_name <- paste(file_name, '_markdown.tex', sep = '')
