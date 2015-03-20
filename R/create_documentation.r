@@ -251,10 +251,10 @@ create_markdown_documentation <- function(file_name, python = 'python',
         # on windows, blanks in parser break system command, if unquoted
         parser <- paste0('"', parser, '"')
         status <- system2(python, args = c(parser, python_arguments))
-        pdf_name <- paste(file_name, '_markdown.pdf', sep = '')
-        tex_name <- paste(file_name, '_markdown.tex', sep = '')
         # parse_markdown_comments.py tries to tex the tex file. If it does not
         # succeed, we use the tools package.
+        pdf_name <- paste(file_name, '_markdown.pdf', sep = '')
+        tex_name <- paste(file_name, '_markdown.tex', sep = '')
         if (file.exists(tex_name) && ! file.exists(pdf_name)) {
             tools::texi2dvi(tex_name, pdf = TRUE, clean = TRUE)
         }
