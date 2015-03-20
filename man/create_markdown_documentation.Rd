@@ -4,8 +4,8 @@
 \alias{create_markdown_documentation}
 \title{parse markdown comments.}
 \usage{
-create_markdown_documentation(file_name, python = "python",
-  arguments = NULL, magic_character = "\%", comment_character = "#")
+create_markdown_documentation(file_name, python = "python", arguments = NA,
+  magic_character = "\%", comment_character = "#")
 }
 \arguments{
 \item{file_name}{name of or path to the file to be parsed through
