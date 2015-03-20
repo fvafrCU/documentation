@@ -1,6 +1,7 @@
 importFrom(roxygen2, roxygenize)
 importFrom(utils, package.skeleton)
 importFrom(tools, texi2dvi)
+importFrom(checkmate, qassert, assertDirectory, assertFile, assertString)
 export('create_documentation')
 export('create_roxygen_documentation')
 export('create_markdown_documentation')

@@ -21,6 +21,9 @@ create_documentation <- function(file_name,
                                  roxygen = TRUE,
                                  ...
                                  ) {
+    assertFile(file_name, access = 'r')
+    qassert(markdown, "B1")
+    qassert(roxygen, "B1")
     if (length(file_name) == 0) {stop('give a file_name!')}
     status_markdown  <- status_roxygen <- FALSE
 
@@ -81,10 +84,16 @@ create_roxygen_documentation <- function(
                                          output_directory = '.',
                                          overwrite = FALSE,
                                          check_package = TRUE,
-                                         copy_tmp_files_to = NULL,
+                                         copy_tmp_files_to = NA,
                                          working_directory = tempdir(),
                                          ...
                                          ) {
+    assertFile(file_name, access = 'r')
+    assertDirectory(output_directory, access = 'r')
+    qassert(overwrite, "B1")
+    qassert(check_package, "B1")
+    assertString(copy_tmp_files_to, na.ok = TRUE) 
+    qassert(working_directory, "S1")
     on.exit(unlink("Rd2.pdf"))
     #% define variables
     out_file_name <- sub('.Rnw$', '.r', basename(file_name))
@@ -202,15 +211,21 @@ create_roxygen_documentation <- function(
 #' parse_markdown_comments.py.
 #' @return TRUE on success, FALSE otherwise.
 create_markdown_documentation <- function(file_name, python = 'python',
-                                          arguments = NULL,
+                                          arguments = NA,
                                           magic_character = '%',
                                           comment_character ='#'
                                           ) {
+    assertFile(file_name, access = 'r')
+    qassert(python, "S1")
+    assertString(arguments, na.ok = TRUE)
+    qassert(magic_character, "s1")
+    qassert(comment_character, "S1")
     status <- FALSE
-    if (is.null(magic_character)) {
+    if (is.na(magic_character)) {
         python_arguments <- '-h'
     } else {
-        python_arguments <- c(arguments,
+        if (is.na(arguments)) python_arguments <- NULL
+        python_arguments <- c(python_arguments,
                               paste0('-c "', comment_character, '"'),
                               paste0('-m "', magic_character, '"'),
                               file_name)

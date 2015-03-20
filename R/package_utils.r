@@ -86,7 +86,7 @@ build_and_check_package <- function(package_directory,
     tar_ball <- list.files(pattern = paste(package_name, '.*tar.gz$', 
                                            sep = ''))
     r_cmd_check_status <- system(paste('R CMD check ', tar_ball))
-    if (! is.null(copy_tmp_files_to)) {
+    if (! is.na(copy_tmp_files_to)) {
         ## copy temporary files to see what R CMD check output was
         if(! file.exists(copy_tmp_files_to)) dir.create(copy_tmp_files_to)
         file.copy(getwd(), copy_tmp_files_to, overwrite = TRUE,

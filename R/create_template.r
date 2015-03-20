@@ -11,15 +11,8 @@
 #' @examples 
 #' create_template(file_name = 'my_r_file.r', type = 'roxygen_markdown')
 create_template <- function(type = 'template', file_name = '.') {
-    if (! is.character(type)) stop(paste('type has got to be a character',
-                                          'vector of length 1'
-                                          )
-    )
-    if (length(type) != 1) stop(paste('type has got to be a character',
-                                          'vector of length 1'
-                                          )
-    )
-
+    qassert(type, "S1")
+    qassert(file_name, "S1")
     available_types <- c('template', 'standard', 'roxygen', 'markdown',
                              'roxygen_markdown', 'rnw')
     if (! type  %in% available_types) stop(paste('type must be in c("', 
