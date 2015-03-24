@@ -26,8 +26,15 @@ options(repos = r)
 
 if (! "documentation" %in% rownames(installed.packages())) {
     # load the documentation package through devtools.
+    if (! "httr" %in% rownames(installed.packages())) {
+        install.packages("httr")
+    }
+    if (.Platform$OS.type == "windows") {
+        library(httr)
+        set_config(use_proxy(url="10.127.255.17", port=8080))
+    }
     if (! "devtools" %in% rownames(installed.packages())) {
-        install.packages("devtools")
+      install.packages("devtools")
     }
     devtools::install_github("fvafrCU/documentation")
 }
@@ -271,16 +278,23 @@ x <- seq(from = x_min, to = x_max, by = width)
 mtext(x, at = x, 1, line = 0, cex = 0.8)
 
 dev.off()
-if ( interactive()) openPDF(file.path(graphics_directory, "arten_anteile.pdf"))
+if (interactive()) openPDF(file.path(graphics_directory, "arten_anteile.pdf"))
 
 #% collect garbage  
 # We created a local options file on our file system, which we should remove
 # now.
 file.remove("tmp.R")
 #% create documentation
-documentation::create_documentation("documentation_example.r", arguments =
-                                    "--latex")
-if ( interactive()) {
+if (.Platform$OS.type == "windows") {
+    documentation::create_documentation("documentation_example.r", 
+                                        overwrite = TRUE,
+                                        python = "C:/CU/python34/python.exe")
+} else {
+    documentation::create_documentation("documentation_example.r", 
+                                        overwrite = TRUE,
+                                        arguments = "--latex")
+}
+if (interactive()) {
     openPDF("documentation_example.pdf")
     openPDF("documentation_example.r_markdown.pdf")
 }
