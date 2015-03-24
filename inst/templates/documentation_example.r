@@ -2,15 +2,10 @@
 # The roxygen header starts next line.
 #' \emph{file} documentation_example.r
 #'
-#' provide a template for create_documentation() mixing markdown and roxygen.
+#' provide a real life example for \pkg{documentation}.
 #'
 #' @author Dominik Cullmann <dominik.cullmann@@forst.bwl.de>
 #' @section Version: $Id: c292952dbede3c2450d513a0d394603f89d6f8b8 $
-#' @note This header will show up in the roxygen documentation, but it's got
-#' nothing to do with the R statements below. Usually this is not intended.
-#' @section Warning: READ THIS FILE CAREFULLY. There's some information in the
-#' comments.
-# DO NOT CHANGE THE FOLLWOWING THREE LINES.
 #' @docType data
 #' @name A Header for
 NULL
@@ -49,6 +44,15 @@ cat(file = "tmp.R", "options(warn = 2) # treat warnings as errors \n")
 source("tmp.R")
 
 ##% define local functions
+# ROXYGEN_START
+
+#' FIXME
+#'
+#' @author FIXME
+#' @section Version: FIXME
+#' @param file FIXME
+#' @param bg FIXME
+#' @return FIXME
 openPDF <- function(file, bg=TRUE) {
     message("This function is a verbatim copy of the openPDF() function from
 Bioconductor: Open software development for computational biology and
@@ -80,7 +84,7 @@ It is copyright by R. Gentleman, V. J. Carey, D. M. Bates, B.Bolstad, M.
       }
     return(TRUE)
 }
-# ROXYGEN_START
+
 #' write data to disk to pretend we read from a csv file
 #' 
 #' I just want to provide a common "read data from disk" example. So I write to
@@ -273,4 +277,11 @@ if ( interactive()) openPDF(file.path(graphics_directory, "arten_anteile.pdf"))
 # We created a local options file on our file system, which we should remove
 # now.
 file.remove("tmp.R")
+#% create documentation
+documentation::create_documentation("documentation_example.r", arguments =
+                                    "--latex")
+if ( interactive()) {
+    openPDF("documentation_example.pdf")
+    openPDF("documentation_example.r_markdown.pdf")
+}
 
