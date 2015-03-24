@@ -23,6 +23,7 @@ provide_packages <- function(packages,
     }
     return(invisible(all(status)))  
 }
+
 #' check which of the required packages are not installed on the system
 #'
 #' @author Dominik Cullmann, <dominik.cullmann@@forst.bwl.de>
@@ -30,11 +31,12 @@ provide_packages <- function(packages,
 #' @param required_packages  a vector of names of the required packages.
 #' @return a vector of names of the missing packages.
 get_missing_packages <- function(required_packages) {
-    installed_packages <- as.character(installed.packages()[ ,1])
+    installed_packages <- rownames(installed.packages())
     is_required_and_installed <- required_packages  %in% installed_packages
     missing_packages <- required_packages[which(! is_required_and_installed)]
     return(missing_packages)
 }
+
 #' test if pandoc is installed on the system
 #'
 #' @author Dominik Cullmann, <dominik.cullmann@@forst.bwl.de>
@@ -43,6 +45,7 @@ get_missing_packages <- function(required_packages) {
 is_pandoc_installed <- function() {
     return(as.logical(length(Sys.which('pandoc'))))
 }
+
 #' install pandoc
 #'
 #' pandoc is provided via installr::install.pandoc
@@ -64,6 +67,7 @@ install_pandoc <- function() {
        )
     return(invisible())
 }
+
 #' install pandoc if not already installed on the system
 #'
 #' @author Dominik Cullmann, <dominik.cullmann@@forst.bwl.de>
