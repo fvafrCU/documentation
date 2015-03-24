@@ -225,6 +225,7 @@ create_markdown_documentation <- function(file_name, python = 'python',
         python_arguments <- '-h'
     } else {
         if (is.na(arguments)) python_arguments <- NULL
+        else python_arguments  <- arguments
         python_arguments <- c(python_arguments,
                               paste0('-c "', comment_character, '"'),
                               paste0('-m "', magic_character, '"'),
