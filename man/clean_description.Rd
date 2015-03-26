@@ -16,6 +16,10 @@ value of \code{link{writeLines}}.
 utils::package.skeleton() leaves us with a DESCRIPTION that throws a warning
 in R CMD check. Fix that.
 }
+\note{
+We also set Version to 0.0-0, hoping nobody is going to use
+that.
+}
 \section{Version}{
  $Id: 3d72fa8d41ea4e2e7b29ffdfefc45e58fe5274b5 $
 }

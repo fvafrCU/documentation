@@ -84,15 +84,15 @@ create_roxygen_documentation <- function(
                                          output_directory = '.',
                                          overwrite = FALSE,
                                          check_package = TRUE,
-                                         copy_tmp_files_to = NA,
+                                         copy_tmp_files_to = dirname(tempdir()), 
                                          working_directory = tempdir(),
                                          ...
                                          ) {
-    assertFile(file_name, access = 'r')
-    assertDirectory(output_directory, access = 'r')
+    assertFile(file_name, access = "r")
+    assertDirectory(output_directory, access = "r")
     qassert(overwrite, "B1")
     qassert(check_package, "B1")
-    assertString(copy_tmp_files_to, na.ok = TRUE) 
+    assertDirectory(copy_tmp_files_to, access = "r")
     qassert(working_directory, "S1")
     on.exit(unlink("Rd2.pdf"))
     #% define variables
@@ -184,9 +184,13 @@ create_roxygen_documentation <- function(
     files_copied <- c(status_pdf = file.copy('Rd2.pdf',
                                              pdf_path,
                                              overwrite = overwrite),
-                      status_txt = file.copy(txt_name,
-                                             txt_path,
-                                             overwrite = overwrite)
+                      status_txt =  
+                      if (output_directory == ".") { TRUE }
+                      else {
+                          file.copy(txt_name,
+                                    txt_path,
+                                    overwrite = overwrite)
+                      }
                       )
     return(invisible(all(files_copied)))
 }
@@ -201,7 +205,7 @@ create_roxygen_documentation <- function(
 #' @section Version: $Id: 9bbb752b06d887f2115e37c3e9dadd89e40c49c7 $
 #' @param file_name name of or path to the file to be parsed through
 #' parse_markdown_comments.py.
-#' @param python name of or path to a python binary.
+#' @param python3 name of or path to a python3 binary.
 #' @param comment_character the character indicating a comment line. In R this
 #' is '#'. You only need to change it if you want to run this function on a
 #' file containing code other than R. But then you might be better off using
@@ -210,13 +214,13 @@ create_roxygen_documentation <- function(
 #' @param arguments a character vector of further arguments passed to
 #' parse_markdown_comments.py.
 #' @return TRUE on success, FALSE otherwise.
-create_markdown_documentation <- function(file_name, python = 'python',
+create_markdown_documentation <- function(file_name, python3 = 'python3',
                                           arguments = NA,
                                           magic_character = '%',
-                                          comment_character ='#'
+                                          comment_character = '#'
                                           ) {
     assertFile(file_name, access = 'r')
-    qassert(python, "S1")
+    qassert(python3, "S1")
     assertString(arguments, na.ok = TRUE)
     qassert(magic_character, "s1")
     qassert(comment_character, "S1")
@@ -231,27 +235,27 @@ create_markdown_documentation <- function(file_name, python = 'python',
                               paste0('-m "', magic_character, '"'),
                               file_name)
     }
-    if (Sys.which(python) == ""){
+    if (Sys.which(python3) == ""){
         if (.Platform$OS.type != 'unix') {
             message(paste('on Microsoft systems you may try to specify',
-                          '"python" as something like',
+                          '"python3" as something like',
                           '"c:/python34/python.exe"')
             )
-            message("you may try to install python through something along the
+            message("you may try to install python3 through something along the
                     lines of:\n\n",
                     '\tpackage <- "installr" \n',
                     "\tif (!require(package)) install.packages(package)\n",
                     '\turl <- "https://www.python.org/ftp/python/3.4.3/python-3.4.3.amd64.msi"\n',
                     '\tinstallr::install.URL(url)\n ')
         }
-        stop(paste("can't locate", python))
+        stop(paste("can't locate", python3))
     } else {
         parser <- system.file(file.path('python', 'parse_markdown_comments.py'),
                               package = 'documentation'
                               )
         # on windows, blanks in parser break system command, if unquoted
         parser <- paste0('"', parser, '"')
-        status <- system2(python, args = c(parser, python_arguments))
+        status <- system2(python3, args = c(parser, python_arguments))
         # parse_markdown_comments.py tries to tex the tex file. If it does not
         # succeed, we use the tools package.
         pdf_name <- paste(file_name, '_markdown.pdf', sep = '')

@@ -4,14 +4,14 @@
 \alias{create_markdown_documentation}
 \title{parse markdown comments.}
 \usage{
-create_markdown_documentation(file_name, python = "python", arguments = NA,
-  magic_character = "\%", comment_character = "#")
+create_markdown_documentation(file_name, python3 = "python3",
+  arguments = NA, magic_character = "\%", comment_character = "#")
 }
 \arguments{
 \item{file_name}{name of or path to the file to be parsed through
 parse_markdown_comments.py.}
 
-\item{python}{name of or path to a python binary.}
+\item{python3}{name of or path to a python3 binary.}
 
 \item{arguments}{a character vector of further arguments passed to
 parse_markdown_comments.py.}

@@ -4,12 +4,13 @@
 \alias{build_and_check_package}
 \title{build and check a temporary package intended for documentation mainly.}
 \usage{
-build_and_check_package(package_directory, copy_tmp_files_to)
+build_and_check_package(package_directory,
+  copy_tmp_files_to = dirname(tempdir()))
 }
 \arguments{
 \item{package_directory}{Path to the packages' directory.}
 
-\item{copy_tmp_files_to}{Path to copy temporary files from R CMD CHECK to.}
+\item{copy_tmp_files_to}{Path to save output from R CMD check to.}
 }
 \value{
 invisibly 0, if R CMD check returned 0, nothing otherwise.

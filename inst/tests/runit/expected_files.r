@@ -39,7 +39,6 @@ test_txt <- function() {
         txt_name <- sub("\\.r", "\\.txt", r_name)
         create_template(type = type, file_name = r_name)
         create_roxygen_documentation(r_name, 
-                                     copy_tmp_files_to = file.path(dirname(tempdir()), "documentation"), 
                                      working_directory = file.path(dirname(tempdir()), "documentation_work"),
                                      output_directory = output_directory,
                                      check_package = FALSE

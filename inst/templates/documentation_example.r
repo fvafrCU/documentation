@@ -299,3 +299,6 @@ if (interactive()) {
     openPDF("documentation_example.r_markdown.pdf")
 }
 
+documentation::create_markdown_documentation("documentation_example.r")
+documentation::create_roxygen_documentation("documentation_example.r", overwrite = TRUE)
+documentation::create_documentation("documentation_example.r", overwrite = TRUE, arguments = "--latex")

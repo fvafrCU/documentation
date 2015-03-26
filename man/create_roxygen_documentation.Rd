@@ -5,8 +5,9 @@
 \title{roxygenize an R code file, output the documentation to pdf.}
 \usage{
 create_roxygen_documentation(file_name, output_directory = ".",
-  overwrite = FALSE, check_package = TRUE, copy_tmp_files_to = NA,
-  working_directory = tempdir(), ...)
+  overwrite = FALSE, check_package = TRUE,
+  copy_tmp_files_to = dirname(tempdir()), working_directory = tempdir(),
+  ...)
 }
 \arguments{
 \item{file_name}{The name of the R code file to be documented.}
