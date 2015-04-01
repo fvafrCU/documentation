@@ -241,12 +241,13 @@ create_markdown_documentation <- function(file_name, python3 = 'python3',
                           '"python3" as something like',
                           '"c:/python34/python.exe"')
             )
-            message("you may try to install python3 through something along the
-                    lines of:\n\n",
+            message("you may try to install python3 through something along", 
+                    " the lines of:\n\n",
                     '\tpackage <- "installr" \n',
-                    "\tif (!require(package)) install.packages(package)\n",
+                    "\tif (!require(package, character.only = TRUE))", 
+                    " install.packages(package)\n",
                     '\turl <- "https://www.python.org/ftp/python/3.4.3/python-3.4.3.amd64.msi"\n',
-                    '\tinstallr::install.URL(url)\n ')
+                    "\tinstallr::install.URL(url)\n ")
         }
         stop(paste("can't locate", python3))
     } else {

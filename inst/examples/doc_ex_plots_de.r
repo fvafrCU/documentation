@@ -1,5 +1,4 @@
 #!/usr/bin/Rscript --vanilla
-# The roxygen header starts next line.
 #' \emph{file} documentation_example.r
 #'
 #' provide a real life example for \pkg{documentation}.
@@ -286,16 +285,16 @@ if (interactive()) openPDF(file.path(graphics_directory, "arten_anteile.pdf"))
 file.remove("tmp.R")
 #% create documentation
 if (.Platform$OS.type == "windows") {
-    documentation::create_documentation("documentation_example.r", 
+    documentation::create_documentation("doc_ex_plots_de.r", 
                                         overwrite = TRUE,
                                         python = "C:/CU/python34/python.exe")
 } else {
-    documentation::create_documentation("documentation_example.r", 
+    documentation::create_documentation("doc_ex_plots_de.r", 
                                         overwrite = TRUE,
                                         arguments = "--latex")
 }
 if (interactive()) {
-    openPDF("documentation_example.pdf")
-    openPDF("documentation_example.r_markdown.pdf")
+    openPDF("doc_ex_plots_de.pdf")
+    openPDF("doc_ex_plots_de.r_markdown.pdf")
 }
 
