@@ -10,6 +10,8 @@ Description:  extract roxygen2-style and markdown comments from a single R code
     file and convert them to various human-readable formats.
 License: file LICENSE
 SystemRequirements: Python (>= 3)
+Depends: 
+    methods
 Imports: 
     roxygen2,
     utils,
