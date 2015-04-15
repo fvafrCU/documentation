@@ -287,7 +287,7 @@ file.remove("tmp.R")
 if (.Platform$OS.type == "windows") {
     documentation::create_documentation("doc_ex_plots_de.r", 
                                         overwrite = TRUE,
-                                        python = "C:/CU/python34/python.exe")
+                                        python3 = "C:/CU/python34/python.exe")
 } else {
     documentation::create_documentation("doc_ex_plots_de.r", 
                                         overwrite = TRUE,
