@@ -60,7 +60,7 @@ source("tmp.R")
 #' @param bg FIXME
 #' @return FIXME
 openPDF <- function(file, bg=TRUE) {
-    message("This function is a verbatim copy of the openPDF() function from
+    message("This is a slightly modified version of the openPDF() function from
 Bioconductor: Open software development for computational biology and
 bioinformatics R. Gentleman, V. J. Carey, D. M. Bates, B.Bolstad, M.
 Dettling, S. Dudoit, B. Ellis, L. Gautier, Y. Ge, and others 2004,
@@ -69,9 +69,10 @@ Genome Biology, Vol. 5, R80
 It is copyright by R. Gentleman, V. J. Carey, D. M. Bates, B.Bolstad, M.
   Dettling, S. Dudoit, B. Ellis, L. Gautier, Y. Ge, and others 2004. ")
 
+   normalized_path <- normalizePath(file)
    OST <- .Platform$OS.type
    if (OST=="windows")
-      shell.exec(file)
+      shell.exec(normalized_path)
    else
       if (OST == "unix") {
          bioCOpt <- getOption("BioC")
@@ -83,7 +84,7 @@ It is copyright by R. Gentleman, V. J. Carey, D. M. Bates, B.Bolstad, M.
              msg <- "getOption('pdfviewer') is ''"
          if (!is.null(msg))
              stop(msg, "; please use 'options(pdfviewer=...)'")
-         cmd <- paste(pdf,file)
+         cmd <- paste(pdf,normalized_path)
          if( bg )
             cmd <- paste(cmd, "&")
          system(cmd)
