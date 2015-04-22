@@ -1,20 +1,20 @@
 #!/usr/bin/env python3
 """
-##% markdown comments for various source files
-##%
-##% extract markdown like comments from (source code) file, convert them to
-##% valid markdown and run pandoc on it.
-##% Since the comment characters for different languagues change, this program
-##% can be adjusted to use the comment character used in your file by command
-##% line arguments.
-##%
-##% author: Dominik Cullmann  
-##% copyright: 2014, Dominik Cullmann  
-##% license: GPL v3.0  
-##% version: 0.1-1  
-##% maintainer: Dominik cullmann  
-##% email: dominik.cullmann@forst.bwl.de  
-##% status: prototype  
+#% markdown comments for various source files
+#%
+#% extract markdown like comments from (source code) file, convert them to
+#% valid markdown and run pandoc on it.
+#% Since the comment characters for different languagues change, this program
+#% can be adjusted to use the comment character used in your file by command
+#% line arguments.
+#%
+#% author: Dominik Cullmann  
+#% copyright: 2014, Dominik Cullmann  
+#% license: GPL v3.0  
+#% version: 0.1-2  
+#% maintainer: Dominik cullmann  
+#% email: dominik.cullmann@forst.bwl.de  
+#% status: prototype  
 """
 
 #% import modules
