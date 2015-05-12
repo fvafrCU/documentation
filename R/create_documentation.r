@@ -162,13 +162,13 @@ create_roxygen_documentation <- function(
         R_CMD_txt <- paste0('R CMD Rdconv --type=txt ', rd_file)
         Rd_txt <- c(Rd_txt, system(R_CMD_txt, intern = TRUE, wait = TRUE))
     }
-    # TODO: this is dreadful, I'm converting non-ascii to byte and that to
-    # ascii, but 
+    # TODO: this is dreadful, I'm converting non-ascii to byte and that back to
+    # ascii again, but 
     # - setting the options(useFancyQuotes = 'UTF-8') and 
     # - gsub("\u0060", "'", Rd_txt) (I thought u0060 would be the backtick)
     # didn't seem to help. 
     # Why am I doing this? It want to run RUnit tests from within R CMD check
-    # and interactively. Files produced are compared with expected files. No R
+    # and interactively. Files produced are compared with expected files. Now R
     # CMD check and interactive (and batch) give different encodings. I don't
     # know why, but they do. 
     # After R CMD check the documentation.Rcheck/tests/startup.Rs reads:
