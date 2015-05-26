@@ -1,22 +1,21 @@
 Package: documentation
 Type: Package
-Title: document a single R code file.
+Title: Document a Single R Code File
 Version: 0.2-2
-Date: 2015-04-22
+Date: 2015-05-26
 Authors@R: c(person(given = c("Andreas", "Dominik"), family = "Cullmann",
     email = "dominik.cullmann@forst.bwl.de", role = c("aut","cre"), 
     comment = NULL, first = NULL, last = NULL))
-Description:  extract roxygen2-style and markdown comments from a single R code 
+Description:  Extract roxygen2-style and markdown comments from a single R code 
     file and convert them to various human-readable formats.
 License: file LICENSE
 SystemRequirements: Python (>= 3), Pandoc
-Depends: 
-    methods
 Imports: 
     roxygen2,
     utils,
     tools,
     checkmate
 Suggests: 
+    methods,
     installr, 
     RUnit
