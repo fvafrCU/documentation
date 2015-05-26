@@ -6,13 +6,13 @@
   recommend not to do so*. Just make your choice.
  
   *author* Dominik Cullmann <dominik.cullmann@@forst.bwl.de>  
-  *version* $Id: e597248045b13e84900e2fc3898e53165d90ebca $  
+  *version* $Id: c292952dbede3c2450d513a0d394603f89d6f8b8 $  
 
 #  load packages, load local code, define local functions, set options
 ##  load packages
 ##  load local code
 ##  define local functions
-##  set 'global' options
+##  set "global" options
 #  Analyize the data
 ##  load data
 ##  look at the data 

@@ -37,11 +37,11 @@ NULL
 # version to mask the packages' version.  
 
 ##% load packages
-library('methods') # load an example package from the standard library
+library("methods") # load an example package from the standard library
 
 # If we are not sure if a package we want to load is already installed, 
 # we can check that and install missing packages.
-required_packages <- c('ggplot2')
+required_packages <- c("ggplot2")
 
 installed_packages <- as.character(installed.packages()[ ,1])
 missing_packages <- required_packages[which(! required_packages  %in% 
@@ -61,8 +61,8 @@ for (package in required_packages) {
 # This would usually be functions defined and stored away in files.
 # For now we just we just create a file containing R options and 
 # and then source it. 
-cat(file = 'tmp.R', 'options(warn = 2) # treat warnings as errors \n') 
-source('tmp.R')
+cat(file = "tmp.R", "options(warn = 2) # treat warnings as errors \n") 
+source("tmp.R")
 
 ##% define local functions
 # ROXYGEN_START
@@ -76,15 +76,15 @@ source('tmp.R')
 #' @param data Name of a data.frame to ... do whatever needs to be done.  
 #' @return NULL. This is no good.  
 a_first_function <- function(data) {
-    message(paste('## Structure of', deparse(substitute(data)), ':'))
+    message(paste("## Structure of", deparse(substitute(data)), ":"))
     str(data)
-    message(paste('## Head of', deparse(substitute(data)), ':'))
+    message(paste("## Head of", deparse(substitute(data)), ":"))
     print(head(data))
     return(invisible(NULL))
 }
 # ROXYGEN_STOP
 
-##% set 'global' options
+##% set "global" options
 # We overwrite (mask) the options set from the options file. Had we done 
 # it the other way round, we might be tempted to assume warn still to be 
 # set to one, albeit it would have been overwritten by the sourced code.
@@ -131,14 +131,14 @@ old_data <-
 # write or data.frame into a csv file in that subdirectory and delete the 
 # data.frame. So I looks like we had same csv data in a subdirectory,
 # which could be assumed as a common setup.
-data_directory <- 'input_data'
+data_directory <- "input_data"
 if (! file.exists(data_directory)) dir.create(data_directory)
-write.csv2(old_data, file = file.path(data_directory, 'art_prozente.csv'), 
+write.csv2(old_data, file = file.path(data_directory, "art_prozente.csv"), 
           row.names = FALSE)
 rm(old_data, data_directory) # now we have no sign of the data faking left
 
 ##% load data
-art_prozente <- read.csv2(file = file.path('input_data', 'art_prozente.csv'))
+art_prozente <- read.csv2(file = file.path("input_data", "art_prozente.csv"))
 
 ##% look at the data 
 a_first_function(art_prozente)
@@ -171,20 +171,20 @@ ggplot(art_prozente_sorted,
 	   fill = typ
 	   ),
        group = typ
-       ) +     geom_bar(stat = 'identity', position =  position_dodge())  +
-geom_text(aes(label=paste(round(value,1), '%'), y = -1 
+       ) +     geom_bar(stat = "identity", position =  position_dodge())  +
+geom_text(aes(label=paste(round(value,1), "%"), y = -1 
 		   ), size = 4
 	       ) + coord_flip() +
 scale_fill_manual(values =  greens, 
-                  name = '',
-                  guide = FALSE)+ ylab ('Anteil von Hundert') + 
+                  name = "",
+                  guide = FALSE)+ ylab ("Anteil von Hundert") + 
 theme(axis.title =  element_text(color = "grey", size = 20),
       axis.text =  element_text(color = "black", size = 16)
       )
  
 
 ####% save graphic
-ggsave(file.path(graphics_directory, 'arten_anteile.jpeg'),
+ggsave(file.path(graphics_directory, "arten_anteile.jpeg"),
        width = 12, height = 8
        )
 dev.off()
@@ -197,7 +197,7 @@ dev.off()
 art_prozente_sorted <- art_prozente[order(art_prozente$value), ]
 
 ####% write the graphic directly into the local output directory
-cairo_pdf(bg = "grey98", file.path(graphics_directory, 'arten_anteile.pdf'),
+cairo_pdf(bg = "grey98", file.path(graphics_directory, "arten_anteile.pdf"),
 	  width = 7, height = 6.5)
 
 ####% set the limits of the abscissa
@@ -260,5 +260,5 @@ dev.off()
 #% collect garbage  
 # We created a local options file on our file system, which we should
 # remove now.
-file.remove('tmp.R')
+file.remove("tmp.R")
 

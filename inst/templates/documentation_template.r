@@ -17,13 +17,13 @@ NULL
 
 
 ##% load packages
-library('methods') # load an example package from the standard library
+library("methods") # load an example package from the standard library
 
 ##% source files
-cat(file = 'local.tmp', 'options(warn = 1)') # we first have to create a dummy
-source('local.tmp')
+cat(file = "local.tmp", "options(warn = 1)") # we first have to create a dummy
+source("local.tmp")
 
-##% set 'global' options
+##% set "global" options
 options(warn = 2) # treat warnings as errors
 
 ##% define local functions
@@ -115,7 +115,7 @@ summary(lm(Fertility ~ . , data = swiss))
 #% collect garbage  
 # We created a local options file on our file system, which we should
 # remove now.
-file.remove('local.tmp')
+file.remove("local.tmp")
 
 
 

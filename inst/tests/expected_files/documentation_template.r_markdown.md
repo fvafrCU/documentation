@@ -1,7 +1,7 @@
 
 ##  load packages
 ##  source files
-##  set 'global' options
+##  set "global" options
 ##  define local functions
 #  Analysis
 ###  Load data

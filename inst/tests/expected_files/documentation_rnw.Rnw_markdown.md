@@ -3,7 +3,7 @@
 ##  load packages
 ##  load local code
 ##  define local functions
-##  set 'global' options
+##  set "global" options
 #  Analyize the data
 ##  load data
 ##  look at the data 

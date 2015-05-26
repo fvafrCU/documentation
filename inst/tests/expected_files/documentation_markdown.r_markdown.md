@@ -6,7 +6,7 @@
   make it into the markdown documentation.
   
   *author* Dominik Cullmann <dominik.cullmann@@forst.bwl.de>  
-  *section Version:* $Id: 8921512381c2482f61a6e2c1de584587edae7ea1 $  
+  *section Version:* $Id: 4a6af10c8b6bec39f67a7c6c3138dea703493c8c $  
   *note* That markdown requires two blanks to indicate a line break and a
   blank comment line to separate paragraphs. And we need the following, really
   blank line, to end this file header.
@@ -15,7 +15,7 @@
 ##  load packages
 ##  load local code
 ##  define local functions
-##  set 'global' options
+##  set "global" options
 #  Analyize the data
 ##  load data
 ##  look at the data 
