@@ -84,7 +84,7 @@ create_roxygen_documentation <- function(
                                          output_directory = ".",
                                          overwrite = FALSE,
                                          check_package = TRUE,
-                                         copy_tmp_files_to = dirname(tempdir()), 
+                                         copy_tmp_files_to = dirname(tempdir()),
                                          working_directory = tempdir(),
                                          ...
                                          ) {
@@ -103,24 +103,22 @@ create_roxygen_documentation <- function(
     man_directory <- file.path(working_directory, package_name, "man")
     package_directory <- file.path(working_directory, package_name)
     pdf_name <- sub("[rRS]$", "pdf", out_file_name)
-    pdf_path  <-  file.path(output_directory, pdf_name)
+    pdf_path <- file.path(output_directory, pdf_name)
     txt_name <- sub("[rRS]$", "txt", out_file_name)
-    txt_path  <-  file.path(output_directory, txt_name)
-    # out_file_name may contain underscores, which need to be escaped for
-    # LaTeX.
+    txt_path <- file.path(output_directory, txt_name)
+    # out_file_name may contain underscores, which need to be escaped for LaTeX.
     file_name_tex <- gsub("_", "\\_", out_file_name, fixed = TRUE)
     pdf_title <- paste("\'Roxygen documentation for file", file_name_tex, "\'")
     if (.Platform$OS.type != "unix") { 
         ## on windows, R CMD Rd2pdf crashes with multi-word titles... I have no
-        ## clue of the why
+        ## clue of the why.
         pdf_title <- file_name_tex
         ## man dir on windows must be in slashes... at least for R CMD Rd2pdf,
-        ## again, I have no clue
+        ## again, I have no clue.
         man_directory <- sub("\\\\","/", man_directory)
     }
-    R_CMD_pdf <- paste("R CMD Rd2pdf --no-preview --internals",
-                       "--title=",  pdf_title,
-                       man_directory)
+    R_CMD_pdf <- paste("R CMD Rd2pdf --no-preview --internals", "--title=",  
+                       pdf_title, man_directory)
     # R CMD command line options mustn't have spaces around equal signs:
     R_CMD_pdf <- gsub("= ", "=", R_CMD_pdf)
     #% create temporary directory
@@ -130,8 +128,7 @@ create_roxygen_documentation <- function(
     roxygen_code <- get_lines_between_tags(file_name, ...)
     if (is.null(roxygen_code) || ! any(grepl("^#+'", roxygen_code))) {
         stop(paste("Couldn't find roxygen comments in file", file_name,
-                   "\n You shoud set from_firstline and to_lastline to FALSE.")
-        )
+                   "\n You shoud set from_firstline and to_lastline to FALSE."))
     }
     #% write new file to disk
     writeLines(roxygen_code, con = file.path(working_directory, out_file_name))
@@ -246,7 +243,8 @@ create_markdown_documentation <- function(file_name, python3 = "python3",
                     "\tpackage <- 'installr' \n",
                     "\tif (!require(package, character.only = TRUE))", 
                     " install.packages(package)\n",
-                    "\turl <- 'https://www.python.org/ftp/python/3.4.3/python-3.4.3.amd64.msi'\n",
+                    "\turl <- 'https://www.python.org/ftp/python/",
+                    "3.4.3/python-3.4.3.amd64.msi'\n",
                     "\tinstallr::install.URL(url)\n ")
         }
         stop(paste("can't locate", python3))
