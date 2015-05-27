@@ -16,12 +16,12 @@
 #' in this case the whole file will be returned.
 #' @return a character vector of matching lines.
 get_lines_between_tags <- function(file_name, keep_tagged_lines = TRUE,
-                         begin_pattern = 'ROXYGEN_START', 
-                         end_pattern = 'ROXYGEN_STOP',
+                         begin_pattern = "ROXYGEN_START", 
+                         end_pattern = "ROXYGEN_STOP",
                          from_firstline = TRUE, 
                          to_lastline = TRUE
                          ) {
-    assertFile(file_name, access = 'r')
+    assertFile(file_name, access = "r")
     qassert(begin_pattern, "S1")
     qassert(end_pattern, "S1")
     qassert(keep_tagged_lines, "B1")
@@ -69,21 +69,21 @@ get_lines_between_tags <- function(file_name, keep_tagged_lines = TRUE,
         }
     }
     if (length(begin_line_indices) != length(end_line_indices)){
-        stop('found unequal number of begin and end tags')
+        stop("found unequal number of begin and end tags")
     }
     if (length(begin_line_indices) != length(end_line_indices)){
-        stop('found unequal number of begin and end tags')
+        stop("found unequal number of begin and end tags")
     }
     if (! all(begin_line_indices <= end_line_indices)) {
-        stop('begin and end tags not in proper order')
+        stop("begin and end tags not in proper order")
     }
     selected_lines <- eval(parse(
-                               text = paste('R_code_lines[c(', 
+                               text = paste("R_code_lines[c(", 
                                             paste(paste(begin_line_indices, 
                                                         end_line_indices,
-                                                        sep = ':'), 
-                                                  collapse = ',')
-                                            , ')]'
+                                                        sep = ":"), 
+                                                  collapse = ",")
+                                            , ")]"
                                             )
                                )
     )

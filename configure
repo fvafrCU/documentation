@@ -28,20 +28,20 @@ chmod 700 $check_meta_info_script
 package_tools=tmp_package_tools.r
 cat > $package_tools <<EOF
 #!/usr/bin/Rscript --vanilla
-package <- '$rpackage'
+package <- "$rpackage"
 EOF
 chmod 700 $package_tools
 cat >> $package_tools <<\EOF
 library(package, character.only = TRUE)
 
-output_directory <- 'package_tools'
+output_directory <- "package_tools"
 unlink(output_directory, recursive = TRUE)
 dir.create(output_directory)
 
 
 
 #% codetools
-library('codetools')
+library("codetools")
 # checkUsagePackage returns NULL, use sink
 codetools_check <- capture.output(checkUsagePackage(package, all = TRUE))
 outfile <- file.path(output_directory, "checkUsagePackage.out")
@@ -49,25 +49,25 @@ writeLines(codetools_check, outfile)
 if(length(codetools_check) > 0) stop(paste("codetools failed, see ", outfile))
 
 #% lintr
-library('lintr')
-linted <- lint_package(path = '.')
+library("lintr")
+linted <- lint_package(path = ".")
 writeLines(unlist(lapply(linted, paste, collapse=" ")), 
            con = file.path(output_directory, "lint_package.out"))
 #% formatR
-library('formatR')
-for (code_file in list.files(file.path('.', 'R'), full.names = TRUE)) {
+library("formatR")
+for (code_file in list.files(file.path(".", "R"), full.names = TRUE)) {
     output_name <- file.path(output_directory, basename(code_file))
     file.copy(code_file, output_name)
-    tidy_file <- paste(output_name, '.tidy', sep = '')
+    tidy_file <- paste(output_name, ".tidy", sep = "")
     tidy_source(code_file, arrow = TRUE, width.cutoff = 70, file = tidy_file)
     tidy_linted <- lint(tidy_file, linters = default_linters, cache = FALSE)
     if (length(tidy_linted) > 0)
         writeLines(unlist(lapply(tidy_linted, paste, collapse=" ")), 
-                   con = paste(tidy_file, '.linted', sep = ''))
+                   con = paste(tidy_file, ".linted", sep = ""))
     code_linted <- lint(code_file, linters = default_linters, cache = FALSE)
     if (length(code_linted) > 0)
         writeLines(unlist(lapply(code_linted, paste, collapse=" ")), 
-                   con = paste(output_name, '.linted', sep = ''))
+                   con = paste(output_name, ".linted", sep = ""))
 }
 
 

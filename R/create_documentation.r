@@ -14,17 +14,17 @@
 #' @return a logical vector indicating whether markdown comments and roxygen
 #' annotations were parsed.
 #' @examples
-#' create_template(file_name = 'my_r_file.r', type = 'roxygen_markdown')
-#' create_documentation('my_r_file.r', overwrite = TRUE)
+#' create_template(file_name = "my_r_file.r", type = "roxygen_markdown")
+#' create_documentation("my_r_file.r", overwrite = TRUE)
 create_documentation <- function(file_name,
                                  markdown = TRUE,
                                  roxygen = TRUE,
                                  ...
                                  ) {
-    assertFile(file_name, access = 'r')
+    assertFile(file_name, access = "r")
     qassert(markdown, "B1")
     qassert(roxygen, "B1")
-    if (length(file_name) == 0) {stop('give a file_name!')}
+    if (length(file_name) == 0) {stop("give a file_name!")}
     status_markdown  <- status_roxygen <- FALSE
 
     dots <- list(...)
@@ -36,14 +36,14 @@ create_documentation <- function(file_name,
     if (! all(names(dots) %in% names(known_defaults))) {
         stop(paste("got unkown argument(s): ",
                    paste(names(dots)[! names(dots) %in% names(known_defaults)],
-                         collapse = ', ')))
+                         collapse = ", ")))
     }
     arguments <- append(list(file_name = file_name), dots)
     if (markdown) {
         use <- modifyList(markdown_defaults, arguments)
         arguments_to_use <- use[names(use) %in% names(markdown_defaults)]
         # use only non-empty arguments
-        arguments_to_use <- arguments_to_use[arguments_to_use != '']
+        arguments_to_use <- arguments_to_use[arguments_to_use != ""]
         status_markdown <- do.call("create_markdown_documentation",
                                    arguments_to_use)
     }
@@ -51,7 +51,7 @@ create_documentation <- function(file_name,
         use <- modifyList(roxygen_defaults, arguments)
         arguments_to_use <- use[names(use) %in% names(roxygen_defaults)]
         # use only non-empty arguments
-        arguments_to_use <- arguments_to_use[arguments_to_use != '']
+        arguments_to_use <- arguments_to_use[arguments_to_use != ""]
         status_roxygen <- do.call("create_roxygen_documentation",
                                   arguments_to_use)
     }
@@ -77,11 +77,11 @@ create_documentation <- function(file_name,
 #' @param ... Arguments passed to \code{\link{get_lines_between_tags}}.
 #' @return TRUE if pdf creation is successfull, FALSE otherwise.
 #' @examples
-#' create_template(file_name = 'my_r_file.r', type = 'template')
-#' create_roxygen_documentation('my_r_file.r', overwrite = TRUE)
+#' create_template(file_name = "my_r_file.r", type = "template")
+#' create_roxygen_documentation("my_r_file.r", overwrite = TRUE)
 create_roxygen_documentation <- function(
                                          file_name,
-                                         output_directory = '.',
+                                         output_directory = ".",
                                          overwrite = FALSE,
                                          check_package = TRUE,
                                          copy_tmp_files_to = dirname(tempdir()), 
@@ -96,21 +96,21 @@ create_roxygen_documentation <- function(
     qassert(working_directory, "S1")
     on.exit(unlink("Rd2.pdf"))
     #% define variables
-    out_file_name <- sub('.Rnw$', '.r', basename(file_name))
-    package_name <- gsub('_', '.',
-                         sub('.[rRS]$|.Rnw$', '', out_file_name, perl = TRUE)
+    out_file_name <- sub(".Rnw$", ".r", basename(file_name))
+    package_name <- gsub("_", ".",
+                         sub(".[rRS]$|.Rnw$", "", out_file_name, perl = TRUE)
                          )
-    man_directory <- file.path(working_directory, package_name, 'man')
+    man_directory <- file.path(working_directory, package_name, "man")
     package_directory <- file.path(working_directory, package_name)
-    pdf_name <- sub('[rRS]$', 'pdf', out_file_name)
+    pdf_name <- sub("[rRS]$", "pdf", out_file_name)
     pdf_path  <-  file.path(output_directory, pdf_name)
-    txt_name <- sub('[rRS]$', 'txt', out_file_name)
+    txt_name <- sub("[rRS]$", "txt", out_file_name)
     txt_path  <-  file.path(output_directory, txt_name)
     # out_file_name may contain underscores, which need to be escaped for
     # LaTeX.
-    file_name_tex <- gsub('_', "\\_", out_file_name, fixed = TRUE)
-    pdf_title <- paste('\'Roxygen documentation for file', file_name_tex, '\'')
-    if (.Platform$OS.type != 'unix') { 
+    file_name_tex <- gsub("_", "\\_", out_file_name, fixed = TRUE)
+    pdf_title <- paste("\'Roxygen documentation for file", file_name_tex, "\'")
+    if (.Platform$OS.type != "unix") { 
         ## on windows, R CMD Rd2pdf crashes with multi-word titles... I have no
         ## clue of the why
         pdf_title <- file_name_tex
@@ -118,11 +118,11 @@ create_roxygen_documentation <- function(
         ## again, I have no clue
         man_directory <- sub("\\\\","/", man_directory)
     }
-    R_CMD_pdf <- paste('R CMD Rd2pdf --no-preview --internals',
-                       '--title=',  pdf_title,
+    R_CMD_pdf <- paste("R CMD Rd2pdf --no-preview --internals",
+                       "--title=",  pdf_title,
                        man_directory)
     # R CMD command line options mustn't have spaces around equal signs:
-    R_CMD_pdf <- gsub('= ', '=', R_CMD_pdf)
+    R_CMD_pdf <- gsub("= ", "=", R_CMD_pdf)
     #% create temporary directory
     unlink(working_directory, recursive = TRUE)
     dir.create(working_directory)
@@ -159,7 +159,7 @@ create_roxygen_documentation <- function(
     Rd_txt <- NULL
     files  <- sort_unlocale(list.files(man_directory, full.names = TRUE))
     for (rd_file in files) {
-        R_CMD_txt <- paste0('R CMD Rdconv --type=txt ', rd_file)
+        R_CMD_txt <- paste0("R CMD Rdconv --type=txt ", rd_file)
         Rd_txt <- c(Rd_txt, system(R_CMD_txt, intern = TRUE, wait = TRUE))
     }
     # TODO: this is dreadful, I'm converting non-ascii to byte and that back to
@@ -179,9 +179,9 @@ create_roxygen_documentation <- function(
                         iconv(Rd_txt, to = "ASCII", mark = TRUE, sub = "byte")
                    )
     )
-    writeLines(iconv(Rd_txt, to = 'ASCII', mark = TRUE), con = txt_name)
+    writeLines(iconv(Rd_txt, to = "ASCII", mark = TRUE), con = txt_name)
     #% copy pdf to output_directory
-    files_copied <- c(status_pdf = file.copy('Rd2.pdf',
+    files_copied <- c(status_pdf = file.copy("Rd2.pdf",
                                              pdf_path,
                                              overwrite = overwrite),
                       status_txt =  
@@ -214,53 +214,53 @@ create_roxygen_documentation <- function(
 #' @param arguments a character vector of further arguments passed to
 #' parse_markdown_comments.py.
 #' @return TRUE on success, FALSE otherwise.
-create_markdown_documentation <- function(file_name, python3 = 'python3',
+create_markdown_documentation <- function(file_name, python3 = "python3",
                                           arguments = NA,
-                                          magic_character = '%',
-                                          comment_character = '#'
+                                          magic_character = "%",
+                                          comment_character = "#"
                                           ) {
-    assertFile(file_name, access = 'r')
+    assertFile(file_name, access = "r")
     qassert(python3, "S1")
     assertString(arguments, na.ok = TRUE)
     qassert(magic_character, "s1")
     qassert(comment_character, "S1")
     status <- FALSE
     if (is.na(magic_character)) {
-        python_arguments <- '-h'
+        python_arguments <- "-h"
     } else {
         if (is.na(arguments)) python_arguments <- NULL
         else python_arguments  <- arguments
         python_arguments <- c(python_arguments,
-                              paste0('-c "', comment_character, '"'),
-                              paste0('-m "', magic_character, '"'),
+                              paste0("-c '", comment_character, "'"),
+                              paste0("-m '", magic_character, "'"),
                               file_name)
     }
     if (Sys.which(python3) == ""){
-        if (.Platform$OS.type != 'unix') {
-            message(paste('on Microsoft systems you may try to specify',
-                          '"python3" as something like',
-                          '"c:/python34/python.exe"')
+        if (.Platform$OS.type != "unix") {
+            message(paste("on Microsoft systems you may try to specify",
+                          "'python3' as something like",
+                          "'c:/python34/python.exe'")
             )
             message("you may try to install python3 through something along", 
                     " the lines of:\n\n",
-                    '\tpackage <- "installr" \n',
+                    "\tpackage <- 'installr' \n",
                     "\tif (!require(package, character.only = TRUE))", 
                     " install.packages(package)\n",
-                    '\turl <- "https://www.python.org/ftp/python/3.4.3/python-3.4.3.amd64.msi"\n',
+                    "\turl <- 'https://www.python.org/ftp/python/3.4.3/python-3.4.3.amd64.msi'\n",
                     "\tinstallr::install.URL(url)\n ")
         }
         stop(paste("can't locate", python3))
     } else {
-        parser <- system.file(file.path('python', 'parse_markdown_comments.py'),
-                              package = 'documentation'
+        parser <- system.file(file.path("python", "parse_markdown_comments.py"),
+                              package = "documentation"
                               )
         # on windows, blanks in parser break system command, if unquoted
-        parser <- paste0('"', parser, '"')
+        parser <- paste0("'", parser, "'")
         status <- system2(python3, args = c(parser, python_arguments))
         # parse_markdown_comments.py tries to tex the tex file. If it does not
         # succeed, we use the tools package.
-        pdf_name <- paste(file_name, '_markdown.pdf', sep = '')
-        tex_name <- paste(file_name, '_markdown.tex', sep = '')
+        pdf_name <- paste(file_name, "_markdown.pdf", sep = "")
+        tex_name <- paste(file_name, "_markdown.tex", sep = "")
         if (file.exists(tex_name) && ! file.exists(pdf_name)) {
             tools::texi2dvi(tex_name, pdf = TRUE, clean = TRUE)
         }

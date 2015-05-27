@@ -12,10 +12,10 @@ sort_unlocale <- function(char) {
     char0 <- char
     for (letter in letters) {
         char0 <-  gsub(paste0(toupper(letter)), 
-                         paste0(which(letter == letters) * 10, '_'),
+                         paste0(which(letter == letters) * 10, "_"),
                          char0)
         char0 <-  gsub(paste0(letter), 
-                         paste0(which(letter == letters) * 10 + 1, '_'),
+                         paste0(which(letter == letters) * 10 + 1, "_"),
                          char0)
     }
     return(char[order(char0)])
@@ -32,12 +32,12 @@ sort_unlocale <- function(char) {
 #' @return value of \code{link{base::file.remove()}}.
 remove_package_Rd <- function(package_directory) {
     package_name <- basename(package_directory)
-    package_rd <- paste(package_name, '-package.Rd', sep = '')
-    status <- file.remove(file.path(package_directory, 'man', package_rd))
+    package_rd <- paste(package_name, "-package.Rd", sep = "")
+    status <- file.remove(file.path(package_directory, "man", package_rd))
     return(invisible(status))
 }
 
-#' Change License in the DESCRIPTION file to 'GPL'
+#' Change License in the DESCRIPTION file to "GPL"
 #'
 #' utils::package.skeleton() leaves us with a DESCRIPTION that throws a warning 
 #' in R CMD check. Fix that.
@@ -50,11 +50,11 @@ remove_package_Rd <- function(package_directory) {
 #' @param package_directory Path to the directory.
 #' @return value of \code{link{writeLines}}.
 clean_description <- function(package_directory) {
-    description_file <- file.path(package_directory, 'DESCRIPTION') 
+    description_file <- file.path(package_directory, "DESCRIPTION") 
     description <-  readLines(description_file)
-    description <-  sub('(License: ).*', '\\1GPL', description)
+    description <-  sub("(License: ).*", "\\1GPL", description)
     # TODO: nasty hardcoding
-    description <-  sub('(Version: ).*', '\\10.0-0', description) 
+    description <-  sub("(Version: ).*", "\\10.0-0", description) 
     status <- writeLines(description, con = description_file)
     return(invisible(status))
 }

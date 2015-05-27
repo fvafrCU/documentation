@@ -1,4 +1,3 @@
 - fix the less dreadful workaround in the creation of ascii from Rd in
   create_roxgen_documentation().
-- change string enclosing frm '' to "".
 - use checkmate for every function argument.

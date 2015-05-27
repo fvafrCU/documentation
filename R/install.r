@@ -43,7 +43,7 @@ get_missing_packages <- function(required_packages) {
 #' @section Version: $Id: ab696f28eb22651bc1bfc8772d53d777927e82db $
 #' @return TRUE if pandoc is installed, FALSE otherwise
 is_pandoc_installed <- function() {
-    return(as.logical(length(Sys.which('pandoc'))))
+    return(as.logical(length(Sys.which("pandoc"))))
 }
 
 #' install pandoc
@@ -55,13 +55,13 @@ is_pandoc_installed <- function() {
 #' @return TODO
 install_pandoc <- function() {
     switch(.Platform$OS.type,
-           'windows' = {
-               provide_packages('installr')
+           "windows" = {
+               provide_packages("installr")
                installr::install.pandoc()
            }
-           , stop(paste('this is intended for windows, not for ',
-                        .Platform$OS.type, '. Use your package/ports manager ',
-                        'or compile pandoc from source.', sep = ''
+           , stop(paste("this is intended for windows, not for ",
+                        .Platform$OS.type, ". Use your package/ports manager ",
+                        "or compile pandoc from source.", sep = ""
                         )
            )              
        )

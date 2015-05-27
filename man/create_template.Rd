@@ -7,7 +7,7 @@
 create_template(type = "template", file_name = ".")
 }
 \arguments{
-\item{type}{The type of template to provide. Give the empty string ('') to
+\item{type}{The type of template to provide. Give the empty string ("") to
 list available types.}
 
 \item{file_name}{The name of the R code file to be created.}
@@ -22,7 +22,7 @@ a simple wrapper to copy a system file to the working directory.
  $Id: 38a4969351d9577aac18a25e178e6a734430dec4 $
 }
 \examples{
-create_template(file_name = 'my_r_file.r', type = 'roxygen_markdown')
+create_template(file_name = "my_r_file.r", type = "roxygen_markdown")
 }
 \author{
 Dominik Cullmann, <dominik.cullmann@forst.bwl.de>
