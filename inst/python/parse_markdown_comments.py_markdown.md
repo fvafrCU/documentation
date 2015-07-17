@@ -1,15 +1,15 @@
 #  markdown comments for various source files
  
-  extract markdown like comments from (source code) file, convert them to
+  extract markdown-like comments from (source code) file, convert them to
   valid markdown and run pandoc on it.
-  Since the comment characters for different languagues change, this program
+  Since the comment characters for different languages change, this program
   can be adjusted to use the comment character used in your file by command
   line arguments.
  
   author: Dominik Cullmann  
   copyright: 2014, Dominik Cullmann  
   license: GPL v3.0  
-  version: 0.1-2  
+  version: 0.1-3  
   maintainer: Dominik cullmann  
   email: dominik.cullmann@forst.bwl.de  
   status: prototype  
@@ -36,7 +36,6 @@
 #  parse command line arguments
 #  write md file
 #  run pandoc
-#  prepare texfile from pandoc
 #  If on posix...
 ##  ... tex it
 ##  ... warn otherwise

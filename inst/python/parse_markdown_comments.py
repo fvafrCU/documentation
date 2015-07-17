@@ -2,16 +2,16 @@
 """
 #% markdown comments for various source files
 #%
-#% extract markdown like comments from (source code) file, convert them to
+#% extract markdown-like comments from (source code) file, convert them to
 #% valid markdown and run pandoc on it.
-#% Since the comment characters for different languagues change, this program
+#% Since the comment characters for different languages change, this program
 #% can be adjusted to use the comment character used in your file by command
 #% line arguments.
 #%
 #% author: Dominik Cullmann  
 #% copyright: 2014, Dominik Cullmann  
 #% license: GPL v3.0  
-#% version: 0.1-2  
+#% version: 0.1-3  
 #% maintainer: Dominik cullmann  
 #% email: dominik.cullmann@forst.bwl.de  
 #% status: prototype  
@@ -225,35 +225,23 @@ if __name__ == '__main__':
         md_file.write(markdown_line)
     md_file.close()
     #% run pandoc
-    if is_tool('pandoc'):
-        subprocess.call(['pandoc',  md_file_name, '-o', full_base_name +
-            '.html'])
-        subprocess.call(['pandoc',  md_file_name, '-o', full_base_name +
-            '.pdf'])
-        subprocess.call(['pandoc',  md_file_name, '-o', 'tmp_' +
-            full_base_name + '.tex'])
-        #% prepare texfile from pandoc
-        tex_file_name = full_base_name + '.tex'
-        out_file = open(tex_file_name, 'w')
-        out_file.write('\documentclass[twoside]{article}\n' +
-                '\\usepackage{hyperref}\n\n\\begin{document}')
-        in_file = open('tmp_' + full_base_name + '.tex', 'r')
-        for in_line in in_file:
-            out_file.write(in_line)
-        in_file.close()
-        out_file.write('\\end{document}\n')
-        out_file.close()
-        os.remove('tmp_' + full_base_name + '.tex')
+    if is_tool("pandoc"):
+        subprocess.call(["pandoc", md_file_name, "-o", full_base_name +
+            ".html"])
+        subprocess.call(["pandoc", "-N", md_file_name, "-o", full_base_name +
+            ".pdf"])
+        subprocess.call(["pandoc", "-sN", md_file_name, "-o", full_base_name + 
+            ".tex"])
         if args.compile_latex:
             #% If on posix...
-            if os.name == 'posix':
+            if os.name == "posix":
                 ##% ... tex it
-                if is_tool('texi2pdf'):
-                    subprocess.call(['texi2pdf', '--batch', '--clean',
-                        tex_file_name])
+                if is_tool("texi2pdf"):
+                    subprocess.call(["texi2pdf", "--batch", "--clean",
+                        full_base_name + ".tex"])
             else:
                 ##% ... warn otherwise
                 print("you're not running posix, see how to compile\n" +
-                        tex_file_name +
+                        full_base_name + ".tex"
                         "\nconsulting your operating system's documentation.")
     sys.exit(0)
