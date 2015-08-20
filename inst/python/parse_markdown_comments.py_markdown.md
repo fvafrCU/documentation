@@ -7,9 +7,9 @@
   line arguments.
  
   author: Dominik Cullmann  
-  copyright: 2014, Dominik Cullmann  
-  license: GPL v3.0  
-  version: 0.1-3  
+  copyright: 2014-2015, Dominik Cullmann  
+  license: BSD 3-Clause
+  version: 0.1-4  
   maintainer: Dominik cullmann  
   email: dominik.cullmann@forst.bwl.de  
   status: prototype  

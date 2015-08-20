@@ -8,24 +8,24 @@
 <td valign=bottom>&nbsp;<br>
 <font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>parse_markdown_comments</strong></big></big></font></td
 ><td align=right valign=bottom
-><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/nik/git/fvafrcu/documentation/inst/python/parse_markdown_comments.py">/home/nik/git/fvafrcu/documentation/inst/python/parse_markdown_comments.py</a></font></td></tr></table>
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/nik/git/cs/fvafrcu/documentation/inst/python/parse_markdown_comments.py">/home/nik/git/cs/fvafrcu/documentation/inst/python/parse_markdown_comments.py</a></font></td></tr></table>
     <p><tt>#%&nbsp;markdown&nbsp;comments&nbsp;for&nbsp;various&nbsp;source&nbsp;files<br>
 #%<br>
-#%&nbsp;extract&nbsp;markdown&nbsp;like&nbsp;comments&nbsp;from&nbsp;(source&nbsp;code)&nbsp;file,&nbsp;convert&nbsp;them&nbsp;to<br>
+#%&nbsp;extract&nbsp;markdown-like&nbsp;comments&nbsp;from&nbsp;(source&nbsp;code)&nbsp;file,&nbsp;convert&nbsp;them&nbsp;to<br>
 #%&nbsp;valid&nbsp;markdown&nbsp;and&nbsp;run&nbsp;pandoc&nbsp;on&nbsp;it.<br>
-#%&nbsp;Since&nbsp;the&nbsp;comment&nbsp;characters&nbsp;for&nbsp;different&nbsp;languagues&nbsp;change,&nbsp;this&nbsp;program<br>
+#%&nbsp;Since&nbsp;the&nbsp;comment&nbsp;characters&nbsp;for&nbsp;different&nbsp;languages&nbsp;change,&nbsp;this&nbsp;program<br>
 #%&nbsp;can&nbsp;be&nbsp;adjusted&nbsp;to&nbsp;use&nbsp;the&nbsp;comment&nbsp;character&nbsp;used&nbsp;in&nbsp;your&nbsp;file&nbsp;by&nbsp;command<br>
 #%&nbsp;line&nbsp;arguments.<br>
 #%<br>
 #%&nbsp;author:&nbsp;Dominik&nbsp;Cullmann&nbsp;&nbsp;<br>
-#%&nbsp;copyright:&nbsp;2014,&nbsp;Dominik&nbsp;Cullmann&nbsp;&nbsp;<br>
-#%&nbsp;license:&nbsp;GPL&nbsp;v3.0&nbsp;&nbsp;<br>
-#%&nbsp;version:&nbsp;0.1-2&nbsp;&nbsp;<br>
+#%&nbsp;copyright:&nbsp;2014-2015,&nbsp;Dominik&nbsp;Cullmann&nbsp;&nbsp;<br>
+#%&nbsp;license:&nbsp;BSD&nbsp;3-Clause<br>
+#%&nbsp;version:&nbsp;0.1-4&nbsp;&nbsp;<br>
 #%&nbsp;maintainer:&nbsp;Dominik&nbsp;cullmann&nbsp;&nbsp;<br>
 #%&nbsp;email:&nbsp;dominik.cullmann@forst.bwl.de&nbsp;&nbsp;<br>
 #%&nbsp;status:&nbsp;prototype&nbsp;&nbsp;<br>
 usage:&nbsp;pydoc.py&nbsp;[-h]&nbsp;[-o&nbsp;NAME_POSTFIX]&nbsp;[-e&nbsp;NAME_PREFIX]&nbsp;[-c&nbsp;COMMENT_CHARACTER]<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[-m&nbsp;MAGIC_CHARACTER]&nbsp;[--example]&nbsp;[-p&nbsp;HEADER_PATTERN]&nbsp;[-l]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[-m&nbsp;MAGIC_CHARACTER]&nbsp;[--example]&nbsp;[-p&nbsp;HEADER_PATTERN]&nbsp;[-n]&nbsp;[-l]<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;file<br>
 &nbsp;<br>
 convert&nbsp;markdown-style&nbsp;from&nbsp;a&nbsp;file&nbsp;to&nbsp;markdown&nbsp;and&nbsp;html&nbsp;via&nbsp;pandoc.<br>
@@ -49,8 +49,9 @@ optional&nbsp;arguments:<br>
 &nbsp;&nbsp;-p&nbsp;HEADER_PATTERN,&nbsp;--header-pattern&nbsp;HEADER_PATTERN<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;give&nbsp;the&nbsp;regex&nbsp;pattern&nbsp;to&nbsp;find&nbsp;the&nbsp;line&nbsp;determining&nbsp;a<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;header.&nbsp;If&nbsp;you&nbsp;give&nbsp;an&nbsp;empty&nbsp;string,&nbsp;any&nbsp;header&nbsp;will<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;be&nbsp;parsedas&nbsp;if&nbsp;it&nbsp;were&nbsp;a&nbsp;markdown-style&nbsp;comment.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;be&nbsp;parsed&nbsp;as&nbsp;if&nbsp;it&nbsp;were&nbsp;a&nbsp;markdown-style&nbsp;comment.<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(default:&nbsp;^$)<br>
+&nbsp;&nbsp;-n,&nbsp;--no-header&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;do&nbsp;not&nbsp;try&nbsp;to&nbsp;extract&nbsp;a&nbsp;header.&nbsp;(default:&nbsp;None)<br>
 &nbsp;&nbsp;-l,&nbsp;--latex<br>
 &nbsp;<br>
 markdown&nbsp;style&nbsp;comments&nbsp;are&nbsp;headed&nbsp;by&nbsp;one&nbsp;or&nbsp;more&nbsp;comment&nbsp;characters&nbsp;giving<br>
