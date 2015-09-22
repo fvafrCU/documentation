@@ -59,6 +59,28 @@ clean_description <- function(package_directory) {
     return(invisible(status))
 }
 
+#' Add a "Depends:"-field to the DESCRIPTION file
+#'
+#' if the functions in the temporary package depend on other functions (from,
+#' for example, the checkmate package), you can add the whole package as a
+#' dependency.
+#'
+#' @author Dominik Cullmann, <dominik.cullmann@@forst.bwl.de>
+#' @section Version: $Id: 3d72fa8d41ea4e2e7b29ffdfefc45e58fe5274b5 $
+#' @param package_directory Path to the directory.
+#' @param dependencies the package names the temporary package will depend on.
+#' @return value of \code{link{writeLines}}.
+add_dependencies_to_description <- function(package_directory, 
+                                            dependencies = NULL) {
+    description_file <- file.path(package_directory, "DESCRIPTION") 
+    description <-  readLines(description_file)
+    if (!is.na(dependencies))
+        description <- c(description, paste0("Depends: ", 
+                                             paste(dependencies, 
+                                                   collapse = ", ")))
+    status <- writeLines(description, con = description_file)
+    return(invisible(status))
+}
 #' fix a \code{\link{package.skeleton}}s package skeleton. 
 #'
 #' This is just a conviniece wrapper to \code{\link{remove_package_Rd}} and

@@ -17,7 +17,8 @@ dir.create(second_working_directory)
 create_documentation(file_name = 'my_r_file.r', 
                      output_directory = second_working_directory)
 for (file_name in list.files(system.file('templates',
-                                         package = 'documentation'))) {
+                                         package = 'documentation'),
+                             pattern = "documentation_.*")) {
     if (file_name == 'documentation_rnw.Rnw' ) {
         template_path <- file.path('templates', file_name)
         template_file <- system.file(template_path, package = 'documentation')

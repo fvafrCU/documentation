@@ -69,6 +69,8 @@ create_documentation <- function(file_name,
 #' @param output_directory The directory to put the documentation into.
 #' @param overwrite Overwrite an existing documentation file?
 #' @param check_package Run R CMD check on the sources?
+#' @param dependencies a character vector of package names the functions depend
+#' on.
 #' @param copy_tmp_files_to path to copy temporary files to. See Note. \cr This
 #' parameter has no effect if make_check is not TRUE.
 #' @param working_directory A working directory. Defaults to tempdir().
@@ -86,6 +88,7 @@ create_roxygen_documentation <- function(
                                          check_package = TRUE,
                                          copy_tmp_files_to = dirname(tempdir()),
                                          working_directory = tempdir(),
+                                         dependencies = NA,
                                          ...
                                          ) {
     assertFile(file_name, access = "r")
@@ -93,6 +96,7 @@ create_roxygen_documentation <- function(
     qassert(overwrite, "B1")
     qassert(check_package, "B1")
     assertDirectory(copy_tmp_files_to, access = "r")
+    assertString(dependencies, na.ok = TRUE)
     qassert(working_directory, "S1")
     on.exit(unlink("Rd2.pdf"))
     #% define variables
@@ -140,6 +144,7 @@ create_roxygen_documentation <- function(
     roxygenize(package.dir = package_directory)
     #% streamline the documentation
     fix_package_documentation(package_directory)
+    add_dependencies_to_description(package_directory, dependencies)
     if (check_package) {
         #% check if the package compiles
         build_and_check_package(package_directory = package_directory,

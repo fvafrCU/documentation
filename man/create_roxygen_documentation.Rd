@@ -7,7 +7,7 @@
 create_roxygen_documentation(file_name, output_directory = ".",
   overwrite = FALSE, check_package = TRUE,
   copy_tmp_files_to = dirname(tempdir()), working_directory = tempdir(),
-  ...)
+  dependencies = NA, ...)
 }
 \arguments{
 \item{file_name}{The name of the R code file to be documented.}
@@ -24,6 +24,9 @@ parameter has no effect if make_check is not TRUE.}
 \item{working_directory}{A working directory. Defaults to tempdir().
 \bold{Warning} the working_directory will be recursively
 \code{\link{unlink}}ed. You can erase your disk if you change the default!}
+
+\item{dependencies}{a character vector of package names the functions depend
+on.}
 
 \item{...}{Arguments passed to \code{\link{get_lines_between_tags}}.}
 }
