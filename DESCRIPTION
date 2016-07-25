@@ -1,11 +1,10 @@
 Package: documentation
 Type: Package
 Title: Document a Single R Code File
-Version: 0.2-4
+Version: 0.2-5
 Date: 2015-09-22
-Authors@R: c(person(given = c("Andreas", "Dominik"), family = "Cullmann",
-    email = "dominik.cullmann@forst.bwl.de", role = c("aut","cre"), 
-    comment = NULL, first = NULL, last = NULL))
+Authors@R: person(given = c("Andreas", "Dominik"), family = "Cullmann",
+    email = "dominik.cullmann@forst.bwl.de", role = c("aut","cre")) 
 Description:  Extract roxygen2-style and markdown comments from a single R code 
     file and convert them to various human-readable formats.
 License: file LICENSE
