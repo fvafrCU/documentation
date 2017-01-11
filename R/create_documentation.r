@@ -40,7 +40,7 @@ create_documentation <- function(file_name,
     }
     arguments <- append(list(file_name = file_name), dots)
     if (markdown) {
-        use <- modifyList(markdown_defaults, arguments)
+        use <- utils::modifyList(markdown_defaults, arguments)
         arguments_to_use <- use[names(use) %in% names(markdown_defaults)]
         # use only non-empty arguments
         arguments_to_use <- arguments_to_use[arguments_to_use != ""]
@@ -48,7 +48,7 @@ create_documentation <- function(file_name,
                                    arguments_to_use)
     }
     if (roxygen) {
-        use <- modifyList(roxygen_defaults, arguments)
+        use <- utils::modifyList(roxygen_defaults, arguments)
         arguments_to_use <- use[names(use) %in% names(roxygen_defaults)]
         # use only non-empty arguments
         arguments_to_use <- arguments_to_use[arguments_to_use != ""]
@@ -88,7 +88,7 @@ create_roxygen_documentation <- function(
                                          check_package = TRUE,
                                          copy_tmp_files_to = dirname(tempdir()),
                                          working_directory = tempdir(),
-                                         dependencies = NA,
+                                         dependencies = NULL,
                                          ...
                                          ) {
     assertFile(file_name, access = "r")
@@ -96,7 +96,7 @@ create_roxygen_documentation <- function(
     qassert(overwrite, "B1")
     qassert(check_package, "B1")
     assertDirectory(copy_tmp_files_to, access = "r")
-    assertCharacter(dependencies, na.ok = TRUE)
+    assertCharacter(dependencies, null.ok = TRUE)
     qassert(working_directory, "S1")
     on.exit(unlink("Rd2.pdf"))
     #% define variables
@@ -223,7 +223,7 @@ create_markdown_documentation <- function(file_name, python3 = "python3",
                                           ) {
     assertFile(file_name, access = "r")
     qassert(python3, "S1")
-    assertString(arguments, na.ok = TRUE)
+    assertCharacter(arguments, null.ok = TRUE)
     qassert(magic_character, "s1")
     qassert(comment_character, "S1")
     status <- FALSE

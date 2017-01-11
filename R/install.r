@@ -15,7 +15,7 @@ provide_packages <- function(packages,
     missing_packages <- get_missing_packages(packages)
     is_installation_required <- as.logical(length(missing_packages))
     if(is_installation_required) {
-        install.packages(missing_packages, repos = mirror)
+        utils::install.packages(missing_packages, repos = mirror)
     }
     for (package in packages) {
         tmp <- library(package, character.only = TRUE,  logical.return = TRUE)
@@ -31,7 +31,7 @@ provide_packages <- function(packages,
 #' @param required_packages  a vector of names of the required packages.
 #' @return a vector of names of the missing packages.
 get_missing_packages <- function(required_packages) {
-    installed_packages <- rownames(installed.packages())
+    installed_packages <- rownames(utils::installed.packages())
     is_required_and_installed <- required_packages  %in% installed_packages
     missing_packages <- required_packages[which(! is_required_and_installed)]
     return(missing_packages)

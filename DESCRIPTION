@@ -4,17 +4,18 @@ Title: Document a Single R Code File
 Version: 0.2-5
 Date: 2015-09-22
 Authors@R: person(given = c("Andreas", "Dominik"), family = "Cullmann",
-    email = "adc-r@arcor.de", role = c("aut","cre")) 
-Description:  Extract roxygen2-style and markdown comments from a single R code 
+    email = "adc-r@arcor.de", role = c("aut","cre"))
+Description: Extract roxygen2-style and markdown comments from a single R code
     file and convert them to various human-readable formats.
 License: BSD_2_clause + file LICENSE
 SystemRequirements: Python (>= 3), Pandoc
-Imports: 
+Imports:
     roxygen2,
     utils,
     tools,
     checkmate
-Suggests: 
+Suggests:
     methods,
-    installr, 
+    installr,
     RUnit
+RoxygenNote: 5.0.1

@@ -74,7 +74,7 @@ add_dependencies_to_description <- function(package_directory,
                                             dependencies = NULL) {
     description_file <- file.path(package_directory, "DESCRIPTION") 
     description <-  readLines(description_file)
-    if (!is.na(dependencies))
+    if (! is.null(dependencies))
         description <- c(description, paste0("Depends: ", 
                                              paste(dependencies, 
                                                    collapse = ", ")))
