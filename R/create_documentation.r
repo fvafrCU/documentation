@@ -96,7 +96,7 @@ create_roxygen_documentation <- function(
     qassert(overwrite, "B1")
     qassert(check_package, "B1")
     assertDirectory(copy_tmp_files_to, access = "r")
-    assertString(dependencies, na.ok = TRUE)
+    assertCharacter(dependencies, na.ok = TRUE)
     qassert(working_directory, "S1")
     on.exit(unlink("Rd2.pdf"))
     #% define variables
