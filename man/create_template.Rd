@@ -21,10 +21,10 @@ a simple wrapper to copy a system file to the working directory.
 \section{Version}{
  $Id: 38a4969351d9577aac18a25e178e6a734430dec4 $
 }
+
 \examples{
 create_template(file_name = "my_r_file.r", type = "roxygen_markdown")
 }
 \author{
 Dominik Cullmann, <dominik.cullmann@forst.bwl.de>
 }
-

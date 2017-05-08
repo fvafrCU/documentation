@@ -28,6 +28,7 @@ this is a wrapper around \code{\link{create_roxygen_documentation}} and
 \section{Version}{
  $Id: 9bbb752b06d887f2115e37c3e9dadd89e40c49c7 $
 }
+
 \examples{
 create_template(file_name = "my_r_file.r", type = "roxygen_markdown")
 create_documentation("my_r_file.r", overwrite = TRUE)
@@ -35,4 +36,3 @@ create_documentation("my_r_file.r", overwrite = TRUE)
 \author{
 Dominik Cullmann, <dominik.cullmann@forst.bwl.de>
 }
-

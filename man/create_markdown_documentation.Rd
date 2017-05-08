@@ -36,7 +36,7 @@ You could also run the python code directly.
 \section{Version}{
  $Id: 9bbb752b06d887f2115e37c3e9dadd89e40c49c7 $
 }
+
 \author{
 Dominik Cullmann, <dominik.cullmann@forst.bwl.de>
 }
-

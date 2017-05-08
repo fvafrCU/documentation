@@ -40,6 +40,7 @@ utils::package.skeleton() and roxygen2::roxygenize().
 \section{Version}{
  $Id: 9bbb752b06d887f2115e37c3e9dadd89e40c49c7 $
 }
+
 \examples{
 create_template(file_name = "my_r_file.r", type = "template")
 create_roxygen_documentation("my_r_file.r", overwrite = TRUE)
@@ -47,4 +48,3 @@ create_roxygen_documentation("my_r_file.r", overwrite = TRUE)
 \author{
 Dominik Cullmann, <dominik.cullmann@forst.bwl.de>
 }
-

@@ -1,8 +1,8 @@
 Package: documentation
 Type: Package
 Title: Document a Single R Code File
-Version: 0.2-5
-Date: 2015-09-22
+Version: 0.2-6
+Date: 2017-05-08
 Authors@R: person(given = c("Andreas", "Dominik"), family = "Cullmann",
     email = "adc-r@arcor.de", role = c("aut","cre"))
 Description: Extract roxygen2-style and markdown comments from a single R code
@@ -18,4 +18,4 @@ Suggests:
     methods,
     installr,
     RUnit
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1

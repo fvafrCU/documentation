@@ -38,7 +38,7 @@ in this case the whole file will be returned.
 \section{Version}{
  $Id: 830c4c8efdcff05e197e15cfe6f1104a95e34e0b $
 }
+
 \author{
 Dominik Cullmann, <dominik.cullmann@forst.bwl.de>
 }
-

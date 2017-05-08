@@ -78,6 +78,7 @@ Check your files into your version control system first.
 
 This package writes to disk, so \strong{NEVER} run it with superuser powers.
 }
+
 \examples{
 \dontrun{
     demo(documentation)
@@ -87,4 +88,3 @@ This package writes to disk, so \strong{NEVER} run it with superuser powers.
 Dominik Cullmann, <dominik.cullmann@forst.bwl.de>
 }
 \keyword{package}
-

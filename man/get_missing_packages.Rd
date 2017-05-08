@@ -18,7 +18,7 @@ check which of the required packages are not installed on the system
 \section{Version}{
  $Id: ab696f28eb22651bc1bfc8772d53d777927e82db $
 }
+
 \author{
 Dominik Cullmann, <dominik.cullmann@forst.bwl.de>
 }
-

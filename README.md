@@ -1,11 +1,2 @@
 # documentation
-This is an R package to create markdown and roxygen2 docs from single code
-files.
-
-In R, try:
-
-```R
-library("devtools")
-install_github("fvafrCU/documentation")
-help("documentation-package", package = "documentation")
-```
+This package is deprecated. I split it's functionality into [document](https://github.com/fvafrCU/document) and [excerptr](https://github.com/fvafrCU/excerptr), both on CRAN now.

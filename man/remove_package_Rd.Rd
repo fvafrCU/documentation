@@ -19,7 +19,7 @@ PACKAGENAME-package.Rd file in the man directory. It needs to be removed.
 \section{Version}{
  $Id: 3d72fa8d41ea4e2e7b29ffdfefc45e58fe5274b5 $
 }
+
 \author{
 Dominik Cullmann, <dominik.cullmann@forst.bwl.de>
 }
-

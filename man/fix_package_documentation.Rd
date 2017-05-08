@@ -19,7 +19,7 @@ This is just a conviniece wrapper to \code{\link{remove_package_Rd}} and
 \section{Version}{
  $Id: 3d72fa8d41ea4e2e7b29ffdfefc45e58fe5274b5 $
 }
+
 \author{
 Dominik Cullmann, <dominik.cullmann@forst.bwl.de>
 }
-
