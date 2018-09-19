@@ -1,3 +1,0 @@
-- fix the less dreadful workaround in the creation of ascii from Rd in
-  create_roxgen_documentation().
-- use checkmate for every function argument.
